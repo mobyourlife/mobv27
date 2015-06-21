@@ -1,17 +1,42 @@
 var bower = './bower_components/';
-var src = './src/';
-var dist = './dist/';
+var src = './src/fansite/';
+var dist = './dist/fansite/';
 
 module.exports = {
 	src: {
-		sass: src + 'fansite/sass/*.{sass,scss}'
+		extras: [
+			'./src/favicon.ico'
+		],
+		html: src + '/**/*.html',
+		images: src + '/images/**/*.*',
+		js: src + '/app/**/*.js',
+		sass: src + 'sass/*.{sass,scss}'
 	},
 
 	dist: {
-		css: dist + 'fansite/css/'
+		extras: dist,
+		html: dist,
+		images: dist + 'images/',
+		js: dist + 'js/',
+		css: dist + 'css/'
 	},
 
 	includes: {
+		browserify: {
+			shim: {
+				'angular': {
+					exports: 'angular',
+					path: bower + 'angular/angular.js'
+				},
+				'angular-route': {
+					exports: 'ngRoute',
+					path: bower + 'angular-route/angular-route.js',
+					depends: {
+						angular: 'angular'
+					}
+				}
+			}
+		},
 		sass: [
 			bower + './bootstrap-sass/assets/stylesheets/'
 		]

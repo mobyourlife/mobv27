@@ -4,7 +4,8 @@ var config = require('../config'),
 	sass = require('gulp-sass'),
 	minify = require('gulp-minify-css'),
 	sourcemaps = require('gulp-sourcemaps'),
-	rename = require('gulp-rename');
+	rename = require('gulp-rename'),
+	livereload = require('gulp-livereload');
 
 gulp.task('sass', function (){
 	gulp.src(config.src.sass)
@@ -19,5 +20,6 @@ gulp.task('sass', function (){
 		}))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(config.dist.css))
-		.pipe(debug());
+		.pipe(debug())
+		.pipe(livereload());
 });
