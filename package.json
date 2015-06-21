@@ -1,0 +1,27 @@
+{
+  "name": "mobv27",
+  "version": "2.7.0",
+  "private": true,
+  "description": "Completely new architecture for Mob Your Life.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:fmobstudio/mobv27.git"
+  },
+  "author": "Filipe Oliveira <contato@fmoliveira.com.br>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-debug": "^2.0.1",
+    "gulp-minify-css": "^1.1.6",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2"
+  },
+  "dependencies": {
+    "require-dir": "^0.3.0"
+  }
+}

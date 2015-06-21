@@ -1,0 +1,29 @@
+{
+  "name": "mobv27",
+  "version": "2.7.0",
+  "private": true,
+  "authors": [
+    "Filipe Oliveira <contato@fmoliveira.com.br>"
+  ],
+  "description": "Completely new architecture for Mob Your Life.",
+  "main": "gulpfile.js",
+  "moduleType": [
+    "globals",
+    "node"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "http://www.mobyourlife.com.br",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1",
+    "bootstrap-sass": "~3.3.5",
+    "fontawesome": "~4.3.0"
+  }
+}
