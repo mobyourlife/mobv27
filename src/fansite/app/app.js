@@ -1,12 +1,19 @@
-var angular = require('angular');
-var ngRoute = require('angular-route');
+'use strict';
 
-angular.module('MobYourLife.Fansite', [
-	'ngRoute'
-])
+var request = require('superagent');
+var MobApi = require('./mobapi');
+var Fansite = require('./fansite');
 
-.config(function () {
-	//
-});
+var thisFansite = new Fansite();
 
-require('./controllers/home');
+request
+	.get(MobApi.method('me'))
+	.end(function(err, res) {
+		if (err) {
+			console.error(err);
+			return;
+		}
+
+		var obj = JSON.parse(res.text);
+		thisFansite.set(obj);
+	});

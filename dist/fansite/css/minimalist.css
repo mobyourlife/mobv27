@@ -365,3 +365,7 @@ html, body {
 .loading-panel {
   margin-top: 30vh;
   text-align: center; }
+
+.small-picture img {
+  width: 200px;
+  height: auto; }

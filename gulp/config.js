@@ -9,7 +9,7 @@ module.exports = {
 		],
 		html: src + '/**/*.html',
 		images: src + '/images/**/*.*',
-		js: src + '/app/**/*.js',
+		js: src + '/app/app.js',
 		sass: src + 'sass/*.{sass,scss}'
 	},
 
@@ -22,21 +22,6 @@ module.exports = {
 	},
 
 	includes: {
-		browserify: {
-			shim: {
-				'angular': {
-					exports: 'angular',
-					path: bower + 'angular/angular.js'
-				},
-				'angular-route': {
-					exports: 'ngRoute',
-					path: bower + 'angular-route/angular-route.js',
-					depends: {
-						angular: 'angular'
-					}
-				}
-			}
-		},
 		sass: [
 			bower + './bootstrap-sass/assets/stylesheets/'
 		]

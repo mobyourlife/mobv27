@@ -10,7 +10,7 @@ var config = require('../config'),
 
 gulp.task('browserify', function () {
 	gulp.src(config.src.js)
-		.pipe(browserify(config.includes.browserify))
+		.pipe(browserify())
 		.pipe(rename('app.js'))
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())
