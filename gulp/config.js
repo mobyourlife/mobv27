@@ -11,7 +11,8 @@ module.exports = {
 		images: src + '/images/**/*.*',
 		js: {
 			all: src + '/app/**/*.js',
-			app: src + '/app/app.js'
+			app: src + '/app/app.js',
+			preload: src + '/app/preload.js'
 		},
 		sass: src + 'sass/*.{sass,scss}'
 	},
