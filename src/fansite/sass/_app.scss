@@ -1,0 +1,15 @@
+body {
+	padding-top: 70px;
+
+	&.mob-hidden {
+		opacity: 0;
+	}
+
+	&.mob-fadein {
+		opacity: 100;
+		-moz-transition: opacity 1.0s;
+		-webkit-transition: opacity 1.0s;
+		-o-transition: opacity 1.0s;
+		transition: opacity 1.0s;
+	}
+}

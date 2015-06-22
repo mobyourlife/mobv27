@@ -1330,17 +1330,60 @@ thisFansite.changed(function (scope) {
 	thisView.updateView(thisFansite);
 });
 
-request
-	.get(MobApi.method('me'))
-	.end(function(err, res) {
-		if (err) {
-			console.error(err);
-			return;
-		}
+/* load boostrap stylesheet */
+var loadCss = function() {
+	var link = document.createElement('link');
+	link.setAttribute('rel', 'stylesheet');
+	link.setAttribute('type', 'text/css');
+	link.setAttribute('href', '/css/bootstrap-fansite.min.css');
+	document.head.appendChild(link);
+};
 
-		var obj = JSON.parse(res.text);
-		thisFansite.set(obj);
-	});
+/* load html layout */
+var loadHtml = function() {
+	request
+		.get(MobApi.template('layout'))
+		.end(function (err, res) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			/* hide body and set layout html */
+			document.body.setAttribute('class', 'mob-hidden');
+			document.body.innerHTML = res.text;
+
+			/* set brand name */
+			var brand = document.getElementsByClassName('navbar-brand');
+			if (brand) {
+				brand[0].innerHTML = thisFansite.name || 'Mob Your Life';
+			}
+
+			/* apply fade in transition */
+			setTimeout(function() {
+				document.body.setAttribute('class', 'mob-fadein');
+			}, 500);
+		});
+};
+
+/* load fansite details */
+var loadMe = function() {
+	request
+		.get(MobApi.method('me'))
+		.end(function (err, res) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			var obj = JSON.parse(res.text);
+			thisFansite.set(obj);
+			loadCss();
+			loadHtml();
+		});
+};
+
+loadMe();
 },{"./fansite":5,"./mobapi":6,"./view":7,"superagent":1}],5:[function(require,module,exports){
 'use strict';
 
@@ -1372,9 +1415,15 @@ module.exports = Fansite;
 },{}],6:[function(require,module,exports){
 'use strict';
 
+var BaseApi = 'http://localhost:2700/';
+
 var MobApi = {
 	method: function (methodName) {
-		var uri = 'http://localhost:2700/api/' + methodName + '.json';
+		var uri = BaseApi + 'api/' + methodName + '.json';
+		return uri;
+	},
+	template: function (templateName) {
+		var uri = BaseApi + 'templates/' + templateName + '.html';
 		return uri;
 	}
 };
