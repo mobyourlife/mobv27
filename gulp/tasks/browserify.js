@@ -9,7 +9,7 @@ var config = require('../config'),
 	livereload = require('gulp-livereload');
 
 gulp.task('browserify', function () {
-	gulp.src(config.src.js)
+	gulp.src(config.src.js.app)
 		.pipe(browserify())
 		.pipe(rename('app.js'))
 		.pipe(gulp.dest(config.dist.js))

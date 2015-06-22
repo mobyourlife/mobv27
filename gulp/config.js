@@ -9,7 +9,10 @@ module.exports = {
 		],
 		html: src + '/**/*.html',
 		images: src + '/images/**/*.*',
-		js: src + '/app/app.js',
+		js: {
+			all: src + '/app/**/*.js',
+			app: src + '/app/app.js'
+		},
 		sass: src + 'sass/*.{sass,scss}'
 	},
 

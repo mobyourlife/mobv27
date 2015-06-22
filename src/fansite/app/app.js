@@ -2,9 +2,16 @@
 
 var request = require('superagent');
 var MobApi = require('./mobapi');
+var View = require('./view');
 var Fansite = require('./fansite');
 
+var thisView = new View();
 var thisFansite = new Fansite();
+
+thisFansite.changed(function (scope) {
+	document.title = scope.title || 'Carregando';
+	thisView.updateView(thisFansite);
+});
 
 request
 	.get(MobApi.method('me'))

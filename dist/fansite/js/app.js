@@ -1319,9 +1319,16 @@ module.exports = function(arr, fn, initial){
 
 var request = require('superagent');
 var MobApi = require('./mobapi');
+var View = require('./view');
 var Fansite = require('./fansite');
 
+var thisView = new View();
 var thisFansite = new Fansite();
+
+thisFansite.changed(function (scope) {
+	document.title = scope.title || 'Carregando';
+	thisView.updateView(thisFansite);
+});
 
 request
 	.get(MobApi.method('me'))
@@ -1334,45 +1341,37 @@ request
 		var obj = JSON.parse(res.text);
 		thisFansite.set(obj);
 	});
-},{"./fansite":5,"./mobapi":6,"superagent":1}],5:[function(require,module,exports){
+},{"./fansite":5,"./mobapi":6,"./view":7,"superagent":1}],5:[function(require,module,exports){
+'use strict';
+
 function Fansite() {
+	/* attributes */
 	var id = null;
 	var name = null;
 	var picture = null;
 
-	this.updateView = function () {
-		var tags = document.getElementsByTagName('mob');
-		document.title = this.name || 'Carregando';
-
-		for (var i = 0; i < tags.length; i++) {
-			var item = tags[i];
-			var type = item.getAttribute('type');
-
-			switch (type) {
-				case 'picture':
-					if (this.picture) {
-						item.innerHTML = '<img src="' + this.picture + '" alt="' + (this.name || 'Imagem') + '"/>';
-					} else {
-						item.innerHTML = '';
-					}
-					break;
-
-				default:
-					break;
-			}
-		}
-	}
+	/* callbacks */
+	var onChanged = null;
 };
 
 Fansite.prototype.set = function (obj) {
 	this.id = obj.id;
 	this.name = obj.name;
 	this.picture = obj.picture;
-	this.updateView();
+
+	if (this.onChanged) {
+		this.onChanged(this);
+	}
+}
+
+Fansite.prototype.changed = function (callback) {
+	this.onChanged = callback;
 }
 
 module.exports = Fansite;
 },{}],6:[function(require,module,exports){
+'use strict';
+
 var MobApi = {
 	method: function (methodName) {
 		var uri = 'http://localhost:2700/api/' + methodName + '.json';
@@ -1381,4 +1380,59 @@ var MobApi = {
 };
 
 module.exports = MobApi;
+},{}],7:[function(require,module,exports){
+'use strict';
+
+function View() {
+	//
+};
+
+View.prototype.updateView = function (scope) {
+	var tags = document.getElementsByTagName('mob');
+
+	for (var i = 0; i < tags.length; i++) {
+		var tag = tags[i];
+
+		if (tag.attributes['type']) {
+			this.renderElement(tag, scope);
+		}
+	}
+}
+
+View.prototype.renderElement = function (tag, scope) {
+	var renderCondition = tag.attributes['if'].value;
+
+	/* evaluate rendering condition */
+	if (renderCondition) {
+		if (!scope[renderCondition]) {
+			tag.innerHTML = '';
+			return;
+		}
+	}
+
+	/* create new DOM element */
+	var element = document.createElement(tag.attributes['type'].value);
+
+	/* set CSS class */
+	if (tag.attributes['class']) {
+		element.setAttribute('class', tag.attributes['class'].value);
+	}
+
+	/* set inner HTML */
+	if (tag.attributes['inner']) {
+		element.innerHTML = scope[tag.attributes['inner'].value];
+	}
+
+	/* set all other attributes */
+	for (var i = 0; i < tag.attributes.length; i++) {
+		var atb = tag.attributes[i];
+		if (atb.name.substring(0, 5) === 'attr-') {
+			element.setAttribute(atb.name.substring(5), scope[atb.value]);
+		}
+	}
+
+	tag.appendChild(element);
+}
+
+module.exports = View;
 },{}]},{},[4])
