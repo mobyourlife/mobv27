@@ -1342,25 +1342,22 @@ var loadCss = function(callback) {
 	link.setAttribute('type', 'text/css');
 	link.setAttribute('href', '/css/bootstrap-fansite.min.css');
 
+	/* check if it uses an alternative theme */
+	if (thisFansite.theme) {
+		var theme = thisFansite.theme.css || thisFansite.theme.colour;
+		theme = theme.toLowerCase().replace('/css/themes/', '').replace('.min.css', '');
+
+		if (theme.length > 0) {
+			link.setAttribute('href', '/css/themes/' + theme + '.min.css');
+		}
+	}
+
 	link.addEventListener('load', function () {
 		callback();
 	});
 
 	document.head.appendChild(link);
 };
-
-/* load app script */
-var loadScript = function(callback) {
-	var script = document.createElement('script');
-	script.setAttribute('type', 'text/javascript');
-	script.setAttribute('src', '/js/app.js');
-
-	script.addEventListener('load', function () {
-		callback();
-	});
-
-	document.body.appendChild(script);
-}
 
 /* load html layout */
 var loadHtml = function(callback) {
@@ -1375,6 +1372,19 @@ var loadHtml = function(callback) {
 			callback(res.text);
 		});
 };
+
+/* load app script */
+var loadScript = function(callback) {
+	var script = document.createElement('script');
+	script.setAttribute('type', 'text/javascript');
+	script.setAttribute('src', '/js/app.js');
+
+	script.addEventListener('load', function () {
+		callback();
+	});
+
+	document.body.appendChild(script);
+}
 
 /* show html in page's body */
 var showHtml = function (html) {

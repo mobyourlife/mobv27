@@ -4,6 +4,7 @@ var dist = './dist/fansite/';
 
 module.exports = {
 	src: {
+		css: src + 'css/**/*.css',
 		extras: [
 			'./src/favicon.ico'
 		],
