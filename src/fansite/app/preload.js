@@ -6,11 +6,11 @@ var View = require('./preload/view');
 var Fansite = require('./preload/fansite');
 
 var thisView = new View();
-var thisFansite = new Fansite();
+window.thisFansite = new Fansite();
 
-thisFansite.changed(function (scope) {
+window.thisFansite.changed(function (scope) {
 	document.title = scope.name || 'Carregando';
-	thisView.updateView(thisFansite);
+	thisView.updateView(window.thisFansite);
 });
 
 /* load boostrap stylesheet */
@@ -47,7 +47,7 @@ var loadHtml = function() {
 			/* set brand name */
 			var brand = document.getElementsByClassName('navbar-brand');
 			if (brand) {
-				brand[0].innerHTML = thisFansite.name || 'Mob Your Life';
+				brand[0].innerHTML = window.thisFansite.name || 'Mob Your Life';
 			}
 
 			/* apply fade in transition */
@@ -71,7 +71,7 @@ var loadMe = function() {
 			}
 
 			var obj = JSON.parse(res.text);
-			thisFansite.set(obj);
+			window.thisFansite.set(obj);
 			loadCss();
 			loadHtml();
 		});

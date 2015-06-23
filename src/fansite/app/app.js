@@ -44,9 +44,7 @@ angular.module('MobYourLife', [
 		jumbotron: true
 	};
 
-	$rootScope.fansite = {
-		name: null
-	};
+	$rootScope.fansite = window.thisFansite;
 
 	ProfileApi.getProfile()
 		.then(function (data) {
