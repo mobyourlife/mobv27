@@ -3,6 +3,7 @@ var config = require('../config'),
 	debug = require('gulp-debug'),
 	browserify = require('gulp-browserify'),
 	rename = require('gulp-rename'),
+	ngAnnotate = require('gulp-ng-annotate'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
 	sourcemaps = require('gulp-sourcemaps'),
@@ -18,6 +19,7 @@ gulp.task('browserify_app', function () {
 			suffix: '.min'
 		}))
 		.pipe(sourcemaps.init())
+		.pipe(ngAnnotate())
 		.pipe(uglify())
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())
@@ -37,6 +39,7 @@ gulp.task('browserify_preload', function () {
 			suffix: '.min'
 		}))
 		.pipe(sourcemaps.init())
+		.pipe(ngAnnotate())
 		.pipe(uglify())
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())

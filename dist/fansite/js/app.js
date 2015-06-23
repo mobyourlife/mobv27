@@ -29297,10 +29297,34 @@ module.exports = angular;
 },{"./angular":3}],5:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function () {
+.controller('ContatoCtrl', function () {
 	//
 });
 },{}],6:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.controller('FotosCtrl', function () {
+	//
+});
+},{}],7:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.controller('HomeCtrl', function () {
+	//
+});
+},{}],8:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.controller('SobreCtrl', function () {
+	//
+});
+},{}],9:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.controller('VideosCtrl', function () {
+	//
+});
+},{}],10:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29311,13 +29335,39 @@ angular.module('MobYourLife', [
 .config(function ($routeProvider) {
 	$routeProvider
 		.when('/inicio', {
-			templateUrl: '/templates/inicio.html',
+			templateUrl: '/partials/inicio.html',
 			controller: 'HomeCtrl'
+		})
+		.when('/sobre', {
+			templateUrl: '/partials/sobre.html',
+			controller: 'SobreCtrl'
+		})
+		.when('/fotos', {
+			templateUrl: '/partials/fotos.html',
+			controller: 'FotosCtrl'
+		})
+		.when('/videos', {
+			templateUrl: '/partials/videos.html',
+			controller: 'VideosCtrl'
+		})
+		.when('/contato', {
+			templateUrl: '/partials/contato.html',
+			controller: 'ContatoCtrl'
 		})
 		.otherwise({
 			redirectTo: '/inicio'
 		});
 })
 
+.run(function ($rootScope) {
+	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
+		$rootScope.controller = data.controller;
+	});
+});
+
 require('./controllers/home');
-},{"./controllers/home":5,"angular":4,"angular-route":2}]},{},[6])
+require('./controllers/sobre');
+require('./controllers/fotos');
+require('./controllers/videos');
+require('./controllers/contato');
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"angular":4,"angular-route":2}]},{},[10])
