@@ -21,6 +21,12 @@
 	</div>
 </nav>
 
+<div class="jumbotron" ng-if="$root.show.jumbotron">
+	<div class="container">
+		<h1 ng-bind="$root.fansite.name"></h1>
+	</div>
+</div>
+
 <div class="container">
 	<div ng-view></div>
 </div>

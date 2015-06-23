@@ -63,7 +63,7 @@ var loadHtml = function() {
 /* load fansite details */
 var loadMe = function() {
 	request
-		.get(MobApi.method('me'))
+		.get(MobApi.cache('me'))
 		.end(function (err, res) {
 			if (err) {
 				console.error(err);

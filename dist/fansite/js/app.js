@@ -29325,10 +29325,35 @@ angular.module('MobYourLife')
 	//
 });
 },{}],10:[function(require,module,exports){
+angular.module('MobYourLife.Data', [])
+
+.service('BaseApi', function ($http) {
+	var baseCache = 'http://localhost:2700/cache/';
+
+	this.getCached = function (method) {
+		return $http.get(baseCache + method + '.json');
+	}
+});
+},{}],11:[function(require,module,exports){
+angular.module('MobYourLife.Data')
+
+.service('ProfileApi', function (BaseApi) {
+	this.getProfile = function () {
+		var promise = BaseApi.getCached('me')
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+});
+},{}],12:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
+require('./data/module');
+
 angular.module('MobYourLife', [
+	'MobYourLife.Data',
 	'ngRoute'
 ])
 
@@ -29359,15 +29384,33 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope) {
+.run(function ($rootScope, ProfileApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
+
+	$rootScope.show = {
+		jumbotron: true
+	};
+
+	$rootScope.fansite = {
+		name: null
+	};
+
+	ProfileApi.getProfile()
+		.then(function (data) {
+			$rootScope.fansite = data;
+		})
+		.catch(function (err) {
+			console.error(err);
+		});
 });
+
+require('./data/profile');
 
 require('./controllers/home');
 require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"angular":4,"angular-route":2}]},{},[10])
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/module":10,"./data/profile":11,"angular":4,"angular-route":2}]},{},[12])

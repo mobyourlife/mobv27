@@ -4,7 +4,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 body {
-  padding-top: 70px; }
+  padding-top: 50px; }
   body.mob-hidden {
     opacity: 0; }
   body.mob-fadein {
