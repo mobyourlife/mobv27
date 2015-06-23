@@ -29309,8 +29309,14 @@ angular.module('MobYourLife')
 },{}],7:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function () {
-	//
+.controller('HomeCtrl', function ($scope, FeedsApi) {
+	FeedsApi.getFeeds()
+		.then(function (data) {
+			$scope.feeds = data;
+		})
+		.catch(function (err) {
+			console.error(err);
+		});
 });
 },{}],8:[function(require,module,exports){
 angular.module('MobYourLife')
@@ -29325,28 +29331,41 @@ angular.module('MobYourLife')
 	//
 });
 },{}],10:[function(require,module,exports){
-angular.module('MobYourLife.Data', [])
-
-.service('BaseApi', function ($http) {
-	var baseCache = 'http://localhost:2700/cache/';
-
-	this.getCached = function (method) {
-		return $http.get(baseCache + method + '.json');
-	}
-});
-},{}],11:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
-.service('ProfileApi', function (BaseApi) {
-	this.getProfile = function () {
-		var promise = BaseApi.getCached('me')
+.service('FeedsApi', function (BaseApi) {
+	this.getFeeds = function () {
+		var promise = BaseApi.getCached('feeds')
 			.then(function (response) {
 				return response.data;
 			});
 		return promise;
 	}
 });
+},{}],11:[function(require,module,exports){
+angular.module('MobYourLife.Data', [])
+
+.service('BaseApi', function ($rootScope, $http) {
+	var baseCache = 'http://localhost:2700/cache/';
+
+	this.getCached = function (method) {
+		var uri = baseCache + 'content/' + $rootScope.fansite.id + '/' + method + '.json';
+		return $http.get(uri);
+	}
+});
 },{}],12:[function(require,module,exports){
+angular.module('MobYourLife.Data')
+
+.service('ProfileApi', function (BaseApi) {
+	this.getProfile = function () {
+		var promise = BaseApi.getCached('profile')
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+});
+},{}],13:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29384,7 +29403,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, ProfileApi) {
+.run(function ($rootScope) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -29394,16 +29413,9 @@ angular.module('MobYourLife', [
 	};
 
 	$rootScope.fansite = window.thisFansite;
-
-	ProfileApi.getProfile()
-		.then(function (data) {
-			$rootScope.fansite = data;
-		})
-		.catch(function (err) {
-			console.error(err);
-		});
 });
 
+require('./data/feeds');
 require('./data/profile');
 
 require('./controllers/home');
@@ -29411,4 +29423,4 @@ require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/module":10,"./data/profile":11,"angular":4,"angular-route":2}]},{},[12])
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/feeds":10,"./data/module":11,"./data/profile":12,"angular":4,"angular-route":2}]},{},[13])

@@ -1318,116 +1318,11 @@ module.exports = function(arr, fn, initial){
 'use strict';
 
 var request = require('superagent');
-var MobApi = require('./preload/mobapi');
-var View = require('./preload/view');
-var Fansite = require('./preload/fansite');
 
-var thisView = new View();
-window.thisFansite = new Fansite();
+window.thisFansite = {};
 
-window.thisFansite.changed(function (scope) {
-	document.title = scope.name || 'Carregando';
-	thisView.updateView(window.thisFansite);
-});
-
-/* load boostrap stylesheet */
-var loadCss = function() {
-	var link = document.createElement('link');
-	link.setAttribute('rel', 'stylesheet');
-	link.setAttribute('type', 'text/css');
-	link.setAttribute('href', '/css/bootstrap-fansite.min.css');
-	document.head.appendChild(link);
-};
-
-/* load app script */
-var loadScript = function() {
-	var script = document.createElement('script');
-	script.setAttribute('type', 'text/javascript');
-	script.setAttribute('src', '/js/app.min.js');
-	document.body.appendChild(script);
-}
-
-/* load html layout */
-var loadHtml = function() {
-	request
-		.get(MobApi.template('layout'))
-		.end(function (err, res) {
-			if (err) {
-				console.error(err);
-				return;
-			}
-
-			/* hide body and set layout html */
-			document.body.setAttribute('class', 'mob-hidden');
-			document.body.innerHTML = res.text;
-
-			/* set brand name */
-			var brand = document.getElementsByClassName('navbar-brand');
-			if (brand) {
-				brand[0].innerHTML = window.thisFansite.name || 'Mob Your Life';
-			}
-
-			/* apply fade in transition */
-			setTimeout(function() {
-				document.body.setAttribute('class', 'mob-fadein');
-			}, 500);
-
-			/* loading app script */
-			loadScript();
-		});
-};
-
-/* load fansite details */
-var loadMe = function() {
-	request
-		.get(MobApi.cache('me'))
-		.end(function (err, res) {
-			if (err) {
-				console.error(err);
-				return;
-			}
-
-			var obj = JSON.parse(res.text);
-			window.thisFansite.set(obj);
-			loadCss();
-			loadHtml();
-		});
-};
-
-loadMe();
-},{"./preload/fansite":5,"./preload/mobapi":6,"./preload/view":7,"superagent":1}],5:[function(require,module,exports){
-'use strict';
-
-function Fansite() {
-	/* attributes */
-	var id = null;
-	var name = null;
-	var picture = null;
-
-	/* callbacks */
-	var onChanged = null;
-};
-
-Fansite.prototype.set = function (obj) {
-	this.id = obj.id;
-	this.name = obj.name;
-	this.picture = obj.picture;
-
-	if (this.onChanged) {
-		this.onChanged(this);
-	}
-}
-
-Fansite.prototype.changed = function (callback) {
-	this.onChanged = callback;
-}
-
-module.exports = Fansite;
-},{}],6:[function(require,module,exports){
-'use strict';
-
+/* mob base api */
 var BaseStatic = 'http://localhost:2700/';
-var BaseServer = 'http://localhost:2700/';
 
 var MobApi = {
 	cache: function (methodName) {
@@ -1437,67 +1332,107 @@ var MobApi = {
 	template: function (templateName) {
 		var uri = BaseStatic + 'templates/' + templateName + '.html';
 		return uri;
-	},
-	method: function (methodName) {
-		var uri = BaseServer + 'api/' + methodName + '.json';
-		return uri;
 	}
 };
 
-module.exports = MobApi;
-},{}],7:[function(require,module,exports){
-'use strict';
+/* load boostrap stylesheet */
+var loadCss = function(callback) {
+	var link = document.createElement('link');
+	link.setAttribute('rel', 'stylesheet');
+	link.setAttribute('type', 'text/css');
+	link.setAttribute('href', '/css/bootstrap-fansite.min.css');
 
-function View() {
-	//
+	link.addEventListener('load', function () {
+		callback();
+	});
+
+	document.head.appendChild(link);
 };
 
-View.prototype.updateView = function (scope) {
-	var tags = document.getElementsByTagName('mob');
+/* load app script */
+var loadScript = function(callback) {
+	var script = document.createElement('script');
+	script.setAttribute('type', 'text/javascript');
+	script.setAttribute('src', '/js/app.js');
 
-	for (var i = 0; i < tags.length; i++) {
-		var tag = tags[i];
+	script.addEventListener('load', function () {
+		callback();
+	});
 
-		if (tag.attributes['type']) {
-			this.renderElement(tag, scope);
-		}
-	}
+	document.body.appendChild(script);
 }
 
-View.prototype.renderElement = function (tag, scope) {
-	var renderCondition = tag.attributes['if'].value;
+/* load html layout */
+var loadHtml = function(callback) {
+	request
+		.get(MobApi.template('layout'))
+		.end(function (err, res) {
+			if (err) {
+				console.error(err);
+				return;
+			}
 
-	/* evaluate rendering condition */
-	if (renderCondition) {
-		if (!scope[renderCondition]) {
-			tag.innerHTML = '';
-			return;
-		}
-	}
+			callback(res.text);
+		});
+};
 
-	/* create new DOM element */
-	var element = document.createElement(tag.attributes['type'].value);
+/* show html in page's body */
+var showHtml = function (html) {
+	document.body.setAttribute('class', 'mob-hidden');
+	document.body.innerHTML = html;
 
-	/* set CSS class */
-	if (tag.attributes['class']) {
-		element.setAttribute('class', tag.attributes['class'].value);
-	}
-
-	/* set inner HTML */
-	if (tag.attributes['inner']) {
-		element.innerHTML = scope[tag.attributes['inner'].value];
-	}
-
-	/* set all other attributes */
-	for (var i = 0; i < tag.attributes.length; i++) {
-		var atb = tag.attributes[i];
-		if (atb.name.substring(0, 5) === 'attr-') {
-			element.setAttribute(atb.name.substring(5), scope[atb.value]);
-		}
-	}
-
-	tag.appendChild(element);
+	/* apply fade in transition */
+	setTimeout(function() {
+		document.body.setAttribute('class', 'mob-fadein');
+	}, 500);
 }
 
-module.exports = View;
-},{}]},{},[4])
+/* load fansite details */
+var loadMe = function(fansiteId) {
+	request
+		.get(MobApi.cache('content/' + fansiteId + '/profile'))
+		.end(function (err, res) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			window.thisFansite = JSON.parse(res.text);
+			document.title = window.thisFansite.facebook.name;
+
+			/* set brand logo */
+			var placeholder = document.getElementsByClassName('logo');
+			if (placeholder && placeholder.length > 0) {
+				var logo = document.createElement('img');
+				logo.setAttribute('src', window.thisFansite.logo.path);
+				logo.setAttribute('alt', window.thisFansite.facebook.name);
+				placeholder[0].appendChild(logo);
+			}
+
+			loadCss(function () {
+				loadHtml(function (html) {
+					loadScript(function () {
+						showHtml(html);
+					});
+				});
+			});
+		});
+};
+
+/* load domain info */
+var loadDomain = function() {
+	request
+		.get(MobApi.cache('domains/' + location.hostname))
+		.end(function (err, res) {
+			if (err) {
+				console.error(err);
+				return;
+			}
+
+			var obj = JSON.parse(res.text);
+			loadMe(obj.id);
+		});
+};
+
+loadDomain();
+},{"superagent":1}]},{},[4])

@@ -1,0 +1,117 @@
+{
+    "id" : "1573492856239593",
+    "facebook" : {
+        "is_verified" : false,
+        "category" : "Internet/software",
+        "picture" : "https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xat1/v/t1.0-1/p320x320/21293_1578794282376117_8313125616914012849_n.png?oh=631e8cb0026374d98564a228895660fe&oe=55E6DC45&__gda__=1446052609_dbed32f172776e32fc8be50ea49c6a43",
+        "link" : "https://www.facebook.com/pages/Fanpage-de-Teste/1573492856239593",
+        "about" : "Bem-vindo a uma fanpage de teste! Esta fanpage é provisória e logo será excluída.",
+        "name" : "Fanpage de Teste",
+        "info" : {
+            "payment_options" : {
+                "visa" : null,
+                "mastercard" : null,
+                "discover" : null,
+                "cash_only" : null,
+                "amex" : null
+            },
+            "foodnight" : {
+                "restaurant" : {
+                    "specialties" : {
+                        "lunch" : null,
+                        "dinner" : null,
+                        "breakfast" : null,
+                        "drinks" : null,
+                        "coffee" : null
+                    },
+                    "services" : {
+                        "takeout" : null,
+                        "outdoor" : null,
+                        "waiter" : null,
+                        "groups" : null,
+                        "reserve" : null,
+                        "catering" : null,
+                        "walkins" : null,
+                        "delivery" : null,
+                        "kids" : null
+                    }
+                },
+                "price_range" : null,
+                "general_manager" : null,
+                "attire" : null
+            },
+            "personality" : {
+                "birthday" : null
+            },
+            "film" : {
+                "directed_by" : null
+            },
+            "impressum" : null,
+            "hours" : null,
+            "general_info" : null,
+            "company" : {
+                "mission" : null,
+                "founded" : null,
+                "company_overview" : null
+            },
+            "band" : {
+                "hometown" : null,
+                "press_contact" : null,
+                "booking_agent" : null,
+                "band_members" : null
+            }
+        },
+        "place" : {
+            "parking" : {
+                "valet" : null,
+                "street" : null,
+                "lot" : null
+            },
+            "location" : {
+                "coordinates" : null,
+                "zip" : null,
+                "country" : null,
+                "state" : null,
+                "city" : null,
+                "street" : null
+            },
+            "phone" : null
+        },
+        "stats" : {
+            "were_here_count" : 0,
+            "talking_about_count" : 1,
+            "likes" : 6,
+            "checkins" : 0
+        },
+        "website" : null,
+        "emails" : null,
+        "description" : null,
+        "category_list" : null
+    },
+    "video_count" : 39,
+    "theme" : {
+        "css" : "/css/themes/spacelab.min.css",
+        "navbar" : "navbar-default",
+        "name" : "default",
+        "colour" : "white"
+    },
+    "cover" : null,
+    "url" : "fanpagedeteste.meusitemob.com.br",
+    "wizard" : {
+        "site_created" : true,
+        "current_step" : 5,
+        "personal_touch" : true,
+        "share_it" : true,
+        "finished" : true
+    },
+    "custom" : {
+        "display_name" : "Fanpage de Teste",
+        "about_page" : "Quem Somos"
+    },
+    "logo" : {
+        "path" : "https://s3-sa-east-1.amazonaws.com/mobyourlife/fanpages/1573492856239593.png",
+        "width" : 200,
+        "margin" : -25,
+        "hide_title" : true
+    }
+}

@@ -39,7 +39,6 @@ html, body {
 .loading-panel {
   margin-top: 30vh;
   text-align: center; }
-
-.small-picture {
-  width: 200px;
-  height: auto; }
+  .loading-panel > .logo > img {
+    width: 200px;
+    height: auto; }

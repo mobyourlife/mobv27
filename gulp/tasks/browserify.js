@@ -15,7 +15,7 @@ gulp.task('browserify_app', function () {
 		.pipe(rename('app.js'))
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())
-		.pipe(rename({
+		/*.pipe(rename({
 			suffix: '.min'
 		}))
 		.pipe(sourcemaps.init())
@@ -25,7 +25,7 @@ gulp.task('browserify_app', function () {
 		.pipe(debug())
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(config.dist.js))
-		.pipe(debug())
+		.pipe(debug())*/
 		.pipe(livereload());
 });
 
@@ -35,7 +35,7 @@ gulp.task('browserify_preload', function () {
 		.pipe(rename('preload.js'))
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())
-		.pipe(rename({
+		/*.pipe(rename({
 			suffix: '.min'
 		}))
 		.pipe(sourcemaps.init())
@@ -45,7 +45,7 @@ gulp.task('browserify_preload', function () {
 		.pipe(debug())
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(config.dist.js))
-		.pipe(debug())
+		.pipe(debug())*/
 		.pipe(livereload());
 });
 

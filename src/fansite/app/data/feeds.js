@@ -1,8 +1,8 @@
 angular.module('MobYourLife.Data')
 
-.service('ProfileApi', function (BaseApi) {
-	this.getProfile = function () {
-		var promise = BaseApi.getCached('profile')
+.service('FeedsApi', function (BaseApi) {
+	this.getFeeds = function () {
+		var promise = BaseApi.getCached('feeds')
 			.then(function (response) {
 				return response.data;
 			});

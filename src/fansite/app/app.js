@@ -35,7 +35,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, ProfileApi) {
+.run(function ($rootScope) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -45,16 +45,9 @@ angular.module('MobYourLife', [
 	};
 
 	$rootScope.fansite = window.thisFansite;
-
-	ProfileApi.getProfile()
-		.then(function (data) {
-			$rootScope.fansite = data;
-		})
-		.catch(function (err) {
-			console.error(err);
-		});
 });
 
+require('./data/feeds');
 require('./data/profile');
 
 require('./controllers/home');
