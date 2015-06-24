@@ -30,6 +30,17 @@ img {
 html, body {
   overflow-y: scroll; }
 
+body {
+  padding-top: 50px; }
+  body.mob-hidden {
+    opacity: 0; }
+  body.mob-fadein {
+    opacity: 100;
+    -moz-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s; }
+
 html, body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;

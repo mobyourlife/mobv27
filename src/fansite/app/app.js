@@ -48,9 +48,11 @@ angular.module('MobYourLife', [
 });
 
 require('./data/feeds');
+require('./data/fotos');
 require('./data/profile');
+require('./data/videos');
 
-require('./controllers/home');
+require('./controllers/inicio');
 require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');

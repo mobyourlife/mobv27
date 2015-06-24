@@ -29303,8 +29303,14 @@ angular.module('MobYourLife')
 },{}],6:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('FotosCtrl', function () {
-	//
+.controller('FotosCtrl', function ($scope, FotosApi) {
+	FotosApi.getFotos()
+		.then(function (data) {
+			$scope.fotos = data;
+		})
+		.catch(function (err) {
+			console.error(err);
+		});
 });
 },{}],7:[function(require,module,exports){
 angular.module('MobYourLife')
@@ -29322,13 +29328,19 @@ angular.module('MobYourLife')
 angular.module('MobYourLife')
 
 .controller('SobreCtrl', function ($rootScope) {
-	console.log($rootScope.fansite)
+	//
 });
 },{}],9:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('VideosCtrl', function () {
-	//
+.controller('VideosCtrl', function ($scope, VideosApi) {
+	VideosApi.getVideos()
+		.then(function (data) {
+			$scope.videos = data;
+		})
+		.catch(function (err) {
+			console.error(err);
+		});
 });
 },{}],10:[function(require,module,exports){
 angular.module('MobYourLife.Data')
@@ -29343,6 +29355,18 @@ angular.module('MobYourLife.Data')
 	}
 });
 },{}],11:[function(require,module,exports){
+angular.module('MobYourLife.Data')
+
+.service('FotosApi', function (BaseApi) {
+	this.getFotos = function () {
+		var promise = BaseApi.getCached('fotos')
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+});
+},{}],12:[function(require,module,exports){
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
@@ -29353,7 +29377,7 @@ angular.module('MobYourLife.Data', [])
 		return $http.get(uri);
 	}
 });
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('ProfileApi', function (BaseApi) {
@@ -29365,7 +29389,19 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
+angular.module('MobYourLife.Data')
+
+.service('VideosApi', function (BaseApi) {
+	this.getVideos = function () {
+		var promise = BaseApi.getCached('videos')
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+});
+},{}],15:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29416,11 +29452,13 @@ angular.module('MobYourLife', [
 });
 
 require('./data/feeds');
+require('./data/fotos');
 require('./data/profile');
+require('./data/videos');
 
-require('./controllers/home');
+require('./controllers/inicio');
 require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/home":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/feeds":10,"./data/module":11,"./data/profile":12,"angular":4,"angular-route":2}]},{},[13])
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/feeds":10,"./data/fotos":11,"./data/module":12,"./data/profile":13,"./data/videos":14,"angular":4,"angular-route":2}]},{},[15])

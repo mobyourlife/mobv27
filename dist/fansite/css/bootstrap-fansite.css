@@ -17,6 +17,29 @@ body {
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s; }
 
+html, body {
+  overflow-y: scroll; }
+
+body {
+  padding-top: 50px; }
+  body.mob-hidden {
+    opacity: 0; }
+  body.mob-fadein {
+    opacity: 100;
+    -moz-transition: opacity 0.5s;
+    -webkit-transition: opacity 0.5s;
+    -o-transition: opacity 0.5s;
+    transition: opacity 0.5s; }
+
+.container {
+  padding-top: 20px; }
+
+.media.video {
+  margin-bottom: 1.5em; }
+
+.video-container {
+  width: 250px; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
