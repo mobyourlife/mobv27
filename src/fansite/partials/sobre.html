@@ -1,1 +1,18 @@
-Hi about!
+<ul class="breadcrumb">
+	<li ng-bind="fansite.facebook.category"></li>
+</ul>
+
+<div class="row text-center">
+	<div>
+		<i class="fa fa-thumbs-o-up fa-4x"></i><br/>
+		<span>Curtidas:</span><br/>
+		<strong ng-bind="fansite.facebook.stats.likes"></strong>
+	</div>
+</div>
+
+<hr/>
+
+<div class="row">
+	<p ng-if="fansite.facebook.about" ng-bind="fansite.facebook.about"></p>
+	<p ng-if="fansite.facebook.description" ng-bind="fansite.facebook.description"></p>
+</div>

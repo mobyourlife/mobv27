@@ -29321,8 +29321,8 @@ angular.module('MobYourLife')
 },{}],8:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('SobreCtrl', function () {
-	//
+.controller('SobreCtrl', function ($rootScope) {
+	console.log($rootScope.fansite)
 });
 },{}],9:[function(require,module,exports){
 angular.module('MobYourLife')

@@ -1,5 +1,5 @@
 angular.module('MobYourLife')
 
-.controller('SobreCtrl', function () {
-	//
+.controller('SobreCtrl', function ($rootScope) {
+	console.log($rootScope.fansite)
 });
