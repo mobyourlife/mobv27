@@ -29402,6 +29402,28 @@ angular.module('MobYourLife.Data')
 	}
 });
 },{}],15:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.directive('spinnerOnLoad', function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element) {
+            element.on('load', function() {
+                element.removeClass('spinner-hide');
+                element.addClass('spinner-show');
+                element.parent().find('span').remove();
+            });
+            scope.$watch(function() {
+                return element.attr('src');
+            }, function() {
+                element.removeClass('spinner-show');
+                element.addClass('spinner-hide');
+                element.parent().append('<span class="spinner"></span>');
+            });
+        }
+    }
+});
+},{}],16:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29462,9 +29484,11 @@ require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
 
+require('./directives/spinner-on-load');
+
 require('./filters/date');
 require('./filters/video');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/feeds":10,"./data/fotos":11,"./data/module":12,"./data/profile":13,"./data/videos":14,"./filters/date":16,"./filters/video":17,"angular":4,"angular-route":2}],16:[function(require,module,exports){
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/feeds":10,"./data/fotos":11,"./data/module":12,"./data/profile":13,"./data/videos":14,"./directives/spinner-on-load":15,"./filters/date":17,"./filters/video":18,"angular":4,"angular-route":2}],17:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('displayDate', function ($filter) {
@@ -29502,7 +29526,7 @@ angular.module('MobYourLife')
 		return _date.toUpperCase();
 	};
 });
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('video', function ($filter, $sce) {
@@ -29524,4 +29548,4 @@ angular.module('MobYourLife')
 		return $sce.trustAsResourceUrl(_embed);
 	};
 });
-},{}]},{},[15])
+},{}]},{},[16])

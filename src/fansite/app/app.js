@@ -58,5 +58,7 @@ require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
 
+require('./directives/spinner-on-load');
+
 require('./filters/date');
 require('./filters/video');

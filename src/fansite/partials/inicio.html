@@ -6,15 +6,17 @@
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-sm-5">
-				<p ng-if="f.picture" class="feed-picture"><img ng-src="{{f.picture}}" ng-alt="{{f.story || f.message}}" class="img-responsive"/></p>
-				<p>
+				<div ng-if="f.picture" class="feed-picture media-box">
+					<img ng-src="{{f.picture}}" spinner-on-load ng-alt="{{f.story || f.message}}" class="img-responsive"/>
+				</div>
+				<div>
 					<a href="#" class="btn btn-default"><i class="fa fa-thumbs-o-up fa-fw"></i> <span ng-bind="f.likes_count"></span></a>
 					<a href="#" class="btn btn-default"><i class="fa fa-retweet fa-fw"></i></a>
 					<span class="pull-right">
 						<span ng-bind="f.time | displayDate" class="label label-default"></span>
 						<span ng-bind="f.time | displayTime" class="label label-default"></span>
 					</span>
-				</p>
+				</div>
 			</div>
 			<div class="col-sm-7">
 				
