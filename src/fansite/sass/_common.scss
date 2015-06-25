@@ -1,9 +1,6 @@
-html, body {
-	overflow-y: scroll;
-}
-
 body {
 	padding-top: 50px;
+	overflow-y: scroll;
 
 	&.mob-hidden {
 		opacity: 0;

@@ -2,17 +2,15 @@
 	<div class="media-left">
 		<div class="video-container">
 			<div class="embed-responsive embed-responsive-4by3">
-				<iframe class="embed-responsive-item" src="https://youtube.com/embed/_tvx_CKB7uI"></iframe>
+				<iframe class="embed-responsive-item" ng-src="{{ item.link | video }}"></iframe>
 			</div>
 		</div>
 	</div>
 	<div class="media-body">
-		<h4>{{item.title}}</h4>
+		<h4>{{item.name}}</h4>
 		<p>{{item.description}}</p>
 		<p>
-			<a class="btn btn-primary">
-				<i class="fa fa-facebook fa-fw"></i> Compartilhar via Facebook
-			</a>
+			<a class="btn btn-primary"><i class="fa fa-facebook fa-fw"></i> Compartilhar via Facebook</a>
 		</p>
 	</div>
 </div>

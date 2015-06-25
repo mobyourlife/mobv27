@@ -1,0 +1,9 @@
+{
+	"fansite": {
+		"port": 2700
+	},
+	"api": {
+		"port": 2710,
+		"database": "mongodb://localhost:27017/MobYourLife"
+	}
+}

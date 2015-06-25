@@ -3,11 +3,9 @@
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-html, body {
-  overflow-y: scroll; }
-
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  overflow-y: scroll; }
   body.mob-hidden {
     opacity: 0; }
   body.mob-fadein {
@@ -17,11 +15,9 @@ body {
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s; }
 
-html, body {
-  overflow-y: scroll; }
-
 body {
-  padding-top: 50px; }
+  padding-top: 50px;
+  overflow-y: scroll; }
   body.mob-hidden {
     opacity: 0; }
   body.mob-fadein {
@@ -31,14 +27,28 @@ body {
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s; }
 
-.container {
-  padding-top: 20px; }
+.feed .feed-picture {
+  text-align: center; }
+  .feed .feed-picture img {
+    display: inline-block;
+    max-height: 250px; }
+
+.fotos img {
+  width: 320px;
+  height: 180px;
+  margin-bottom: 1.5em;
+  object-fit: cover; }
 
 .media.video {
   margin-bottom: 1.5em; }
 
 .video-container {
-  width: 250px; }
+  width: 250px;
+  height: 188px;
+  background: #999 url("/images/icons/theaters.png") no-repeat center center; }
+
+footer {
+  text-align: center; }
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {

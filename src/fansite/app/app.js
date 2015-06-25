@@ -57,3 +57,6 @@ require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
+
+require('./filters/date');
+require('./filters/video');

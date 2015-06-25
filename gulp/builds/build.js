@@ -5,6 +5,6 @@ gulp.task('build', [
 	'extras',
 	'html',
 	'images',
-	'sass',
-	'styles'
+	'sass'
+	//'styles'
 ]);

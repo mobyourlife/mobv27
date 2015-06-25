@@ -1348,7 +1348,7 @@ var loadCss = function(callback) {
 		theme = theme.toLowerCase().replace('/css/themes/', '').replace('.min.css', '');
 
 		if (theme.length > 0) {
-			link.setAttribute('href', '/css/themes/' + theme + '.min.css');
+			//link.setAttribute('href', '/css/themes/' + theme + '.min.css');
 		}
 	}
 
@@ -1397,6 +1397,16 @@ var showHtml = function (html) {
 	}, 500);
 }
 
+/* swap extra css */
+var swapExtraCss = function () {
+	var link = document.createElement('link');
+	link.setAttribute('rel', 'stylesheet');
+	link.setAttribute('type', 'text/css');
+	link.setAttribute('href', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+	document.head.appendChild(link);
+	document.getElementById('minimalist').remove();
+}
+
 /* load fansite details */
 var loadMe = function(fansiteId) {
 	request
@@ -1423,6 +1433,7 @@ var loadMe = function(fansiteId) {
 				loadHtml(function (html) {
 					loadScript(function () {
 						showHtml(html);
+						swapExtraCss();
 					});
 				});
 			});
