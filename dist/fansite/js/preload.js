@@ -1342,18 +1342,22 @@ var loadCss = function(callback) {
 	link.setAttribute('type', 'text/css');
 	link.setAttribute('href', '/css/bootstrap-fansite.min.css');
 
-	/* check if it uses an alternative theme */
-	if (thisFansite.theme) {
-		var theme = thisFansite.theme.css || thisFansite.theme.colour;
-		theme = theme.toLowerCase().replace('/css/themes/', '').replace('.min.css', '');
-
-		if (theme.length > 0) {
-			//link.setAttribute('href', '/css/themes/' + theme + '.min.css');
-		}
-	}
-
 	link.addEventListener('load', function () {
 		callback();
+
+		/* check if it uses an alternative theme */
+		if (thisFansite.theme) {
+			var theme = thisFansite.theme.css || thisFansite.theme.colour;
+			theme = theme.toLowerCase().replace('/css/themes/', '').replace('.min.css', '');
+
+			if (theme.length > 0) {
+				var swatch = document.createElement('link');
+				swatch.setAttribute('rel', 'stylesheet');
+				swatch.setAttribute('type', 'text/css');
+				swatch.setAttribute('href', '/css/themes/' + theme + '.min.css');
+				document.head.appendChild(swatch);
+			}
+		}
 	});
 
 	document.head.appendChild(link);
