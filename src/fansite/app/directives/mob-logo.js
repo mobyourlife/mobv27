@@ -17,7 +17,7 @@ angular.module('MobYourLife')
 
 			/* choose wether big logo will be displayed based on settings and scrolling offset */
 			var setLogoSize = function (scrolling) {
-				scope.bigLogo = (scope.allowed && scope.custom.path && scope.custom.width && !scrolling);
+				scope.bigLogo = (scope.allowed && scope.custom && scope.custom.path && scope.custom.width && !scrolling);
 			}
 
 			/* bind window's scroll event */
@@ -25,7 +25,7 @@ angular.module('MobYourLife')
 				var scrolling = (this.pageYOffset >= 100);
 				$rootScope.$broadcast('resizeLogo', {
 					scrolling: scrolling,
-					width: scope.custom.width
+					width: scope.custom ? scope.custom.width : 0
 				});
 			});
 
@@ -43,14 +43,14 @@ angular.module('MobYourLife')
 			$rootScope.$on('disableBigLogo', function () {
 				scope.allowed = false;
 				$rootScope.$broadcast('resizeLogo', {
-					width: scope.custom.width
+					width: scope.custom ? scope.custom.width : 0
 				});
 			});
 
 			/* defer first resize and issue an event to broadcast it to other dependent modules */
 			$timeout(function() {
 				$rootScope.$broadcast('resizeLogo', {
-					width: scope.custom.width
+					width: scope.custom ? scope.custom.width : 0
 				});
 			});
 		},

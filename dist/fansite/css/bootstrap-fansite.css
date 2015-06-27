@@ -35,6 +35,9 @@ img.brand-picture {
 .jumbo-pad {
   height: 2em; }
 
+.hotinfo {
+  margin: 0 2em; }
+
 /* image loading spinner */
 .media-box {
   position: relative;
