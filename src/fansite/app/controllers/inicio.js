@@ -1,6 +1,6 @@
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function($rootScope, $scope, $window, FeedsApi) {
+.controller('HomeCtrl', function($rootScope, $scope, FeedsApi) {
 	var busy = false;
 	$scope.feeds = [];
 

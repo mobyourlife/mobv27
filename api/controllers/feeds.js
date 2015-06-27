@@ -10,8 +10,6 @@ module.exports = {
 			args.time = { $lte: req.query.time };
 		}
 
-		console.log(args);
-
 		Feed.find(args).sort({ time: -1 }).limit(5).exec(function (err, data) {
 			if (err) {
 				throw err;
