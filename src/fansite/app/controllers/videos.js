@@ -4,6 +4,8 @@ angular.module('MobYourLife')
 	var busy = false;
 	$scope.videos = [];
 
+	$rootScope.$broadcast('setPageTitle', 'Vídeos');
+
 	var getMoreVideos = function () {
 		if (busy) {
 			return;

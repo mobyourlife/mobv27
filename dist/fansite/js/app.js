@@ -29297,8 +29297,8 @@ module.exports = angular;
 },{"./angular":3}],5:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('ContatoCtrl', function () {
-	//
+.controller('ContatoCtrl', function ($rootScope) {
+	$rootScope.$broadcast('setPageTitle', 'Contato');
 });
 },{}],6:[function(require,module,exports){
 angular.module('MobYourLife')
@@ -29306,6 +29306,8 @@ angular.module('MobYourLife')
 .controller('FotosCtrl', function ($rootScope, $scope, FotosApi) {
 	var busy = false;
 	$scope.fotos = [];
+
+	$rootScope.$broadcast('setPageTitle', 'Fotos');
 
 	var getMoreFotos = function (callback) {
 		if (busy) {
@@ -29370,6 +29372,8 @@ angular.module('MobYourLife')
 	var busy = false;
 	$scope.feeds = [];
 
+	$rootScope.$broadcast('setPageTitle');
+
 	var getMoreFeeds = function () {
 		if (busy) {
 			return;
@@ -29413,6 +29417,8 @@ angular.module('MobYourLife')
 
 .controller('SobreCtrl', function ($rootScope, $scope) {
 	$scope.hotinfo = [];
+	
+	$rootScope.$broadcast('setPageTitle', 'Sobre');
 
 	/* fanpage likes */
 	$scope.hotinfo.push({
@@ -29481,6 +29487,8 @@ angular.module('MobYourLife')
 .controller('VideosCtrl', function ($rootScope, $scope, VideosApi) {
 	var busy = false;
 	$scope.videos = [];
+
+	$rootScope.$broadcast('setPageTitle', 'Vídeos');
 
 	var getMoreVideos = function () {
 		if (busy) {
@@ -29583,14 +29591,14 @@ angular.module('MobYourLife.Data')
 },{}],15:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.directive('mobBanner', function ($rootScope) {
+.directive('mobBanner', function ($rootScope, $timeout) {
 	return {
 		scope: {
 			'fansiteName': '=',
 			'pageTitle': '='
 		},
 		link: function (scope, element, attr) {
-			scope.title = scope.pageTitle || scope.fansiteName;
+			scope.title = scope.fansiteName;
 			scope.showBanner = scope.title && scope.title.length !== 0;
 			scope.margin = 0;
 
@@ -29602,6 +29610,16 @@ angular.module('MobYourLife')
 			/* listen to logo resize events to add left padding to banner's title */
 			$rootScope.$on('resizeLogo', function (ev, data) {
 				scope.margin = (!data || data.scrolling) ? 0 : data.width;
+			});
+
+			/* listen to page title events to update banner's title */
+			$rootScope.$on('setPageTitle', function (ev, title) {
+				scope.title = title || scope.fansiteName;
+
+				/* defer scope apply to the next digest cycle to avoid a digest in progress */
+				$timeout(function() {
+					scope.$apply();
+				});
 			});
 		},
 		templateUrl: '/templates/mob-banner.html'

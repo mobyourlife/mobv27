@@ -4,6 +4,8 @@ angular.module('MobYourLife')
 	var busy = false;
 	$scope.feeds = [];
 
+	$rootScope.$broadcast('setPageTitle');
+
 	var getMoreFeeds = function () {
 		if (busy) {
 			return;

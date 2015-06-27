@@ -1,13 +1,13 @@
 angular.module('MobYourLife')
 
-.directive('mobBanner', function ($rootScope) {
+.directive('mobBanner', function ($rootScope, $timeout) {
 	return {
 		scope: {
 			'fansiteName': '=',
 			'pageTitle': '='
 		},
 		link: function (scope, element, attr) {
-			scope.title = scope.pageTitle || scope.fansiteName;
+			scope.title = scope.fansiteName;
 			scope.showBanner = scope.title && scope.title.length !== 0;
 			scope.margin = 0;
 
@@ -19,6 +19,16 @@ angular.module('MobYourLife')
 			/* listen to logo resize events to add left padding to banner's title */
 			$rootScope.$on('resizeLogo', function (ev, data) {
 				scope.margin = (!data || data.scrolling) ? 0 : data.width;
+			});
+
+			/* listen to page title events to update banner's title */
+			$rootScope.$on('setPageTitle', function (ev, title) {
+				scope.title = title || scope.fansiteName;
+
+				/* defer scope apply to the next digest cycle to avoid a digest in progress */
+				$timeout(function() {
+					scope.$apply();
+				});
 			});
 		},
 		templateUrl: '/templates/mob-banner.html'

@@ -4,6 +4,8 @@ angular.module('MobYourLife')
 	var busy = false;
 	$scope.fotos = [];
 
+	$rootScope.$broadcast('setPageTitle', 'Fotos');
+
 	var getMoreFotos = function (callback) {
 		if (busy) {
 			return;

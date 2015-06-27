@@ -2,6 +2,8 @@ angular.module('MobYourLife')
 
 .controller('SobreCtrl', function ($rootScope, $scope) {
 	$scope.hotinfo = [];
+	
+	$rootScope.$broadcast('setPageTitle', 'Sobre');
 
 	/* fanpage likes */
 	$scope.hotinfo.push({
