@@ -4,12 +4,14 @@ angular.module('MobYourLife')
 	return {
 		scope: {
 			'fansiteName': '=',
-			'pageTitle': '='
+			'pageTitle': '=',
+			'cover': '='
 		},
 		link: function (scope, element, attr) {
 			scope.title = scope.fansiteName;
 			scope.showBanner = scope.title && scope.title.length !== 0;
 			scope.margin = 0;
+			scope.height = (scope.cover && scope.cover.height) || 250;
 
 			/* in case banner is not shown, logo should be kept small to fit the navbar */
 			if (!scope.showBanner) {
