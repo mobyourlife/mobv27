@@ -32,6 +32,11 @@ img.brand-picture {
   width: 40px;
   height: 40px; }
 
+.jumbotron {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center; }
+
 .jumbo-pad {
   height: 2em; }
 

@@ -21,7 +21,7 @@ angular.module('MobYourLife')
 					path = '/uploads/' + path;
 				}
 
-				scope.background = 'background: url(' + path + ');';
+				scope.background = 'background-image: url(' + path + ');';
 			}
 
 			/* in case banner is not shown, logo should be kept small to fit the navbar */
