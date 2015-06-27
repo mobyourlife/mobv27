@@ -64,6 +64,7 @@ require('./controllers/videos');
 require('./controllers/contato');
 
 require('./directives/mob-banner');
+require('./directives/mob-feed');
 require('./directives/mob-logo');
 require('./directives/spinner-on-load');
 
