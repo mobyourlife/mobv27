@@ -1322,9 +1322,14 @@ var request = require('superagent');
 window.thisFansite = {};
 
 /* mob base api */
+var BaseApi = 'http://localhost:2710/api/';
 var BaseStatic = 'http://localhost:2700/';
 
 var MobApi = {
+	api: function (methodName) {
+		var uri = BaseApi + methodName;
+		return uri;
+	},
 	cache: function (methodName) {
 		var uri = BaseStatic + 'cache/' + methodName + '.json';
 		return uri;
@@ -1414,7 +1419,7 @@ var swapExtraCss = function () {
 /* load fansite details */
 var loadMe = function(fansiteId) {
 	request
-		.get(MobApi.cache('content/' + fansiteId + '/profile'))
+		.get(MobApi.api(fansiteId + '/profile'))
 		.end(function (err, res) {
 			if (err) {
 				console.error(err);
@@ -1428,7 +1433,13 @@ var loadMe = function(fansiteId) {
 			var placeholder = document.getElementsByClassName('logo');
 			if (placeholder && placeholder.length > 0) {
 				var logo = document.createElement('img');
-				logo.setAttribute('src', window.thisFansite.logo.path);
+
+				if (window.thisFansite.logo && window.thisFansite.logo.path) {
+					logo.setAttribute('src', window.thisFansite.logo.path);
+				} else {
+					logo.setAttribute('src', window.thisFansite.facebook.picture);
+				}
+
 				logo.setAttribute('alt', window.thisFansite.facebook.name);
 				placeholder[0].appendChild(logo);
 			}
@@ -1447,7 +1458,7 @@ var loadMe = function(fansiteId) {
 /* load domain info */
 var loadDomain = function() {
 	request
-		.get(MobApi.cache('domains/' + location.hostname))
+		.get(MobApi.api('domain/' + location.hostname))
 		.end(function (err, res) {
 			if (err) {
 				console.error(err);
@@ -1455,7 +1466,7 @@ var loadDomain = function() {
 			}
 
 			var obj = JSON.parse(res.text);
-			loadMe(obj.id);
+			loadMe(obj.ref);
 		});
 };
 

@@ -21,17 +21,30 @@ app.use(bodyParser.json());
 // =============================================================================
 mongoose.connect(config.api.database);
 
+// ENABLE CORS
+// =============================================================================
+app.use(function(req, res, next) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	next();
+});
+
 // ROUTES FOR OUR API
 // =============================================================================
 var router = express.Router();              // get an instance of the express Router
 
 // LOAD CONTROLLERS
-var feeds = require('./controllers/feeds');
+var domain = require('./controllers/domain');
+var profile = require('./controllers/profile');
+//var feeds = require('./controllers/feeds');
 
 // REGISTER OUR ROUTES -------------------------------
-router.get('/feeds/:direction/:index', feeds.getFeeds);
+//router.get('/feeds/:direction/:index', feeds.getFeeds);
+router.get('/api/domain/:name', domain.getDomain);
+router.get('/api/:fansite/profile', profile.getProfile);
 
 // START THE SERVER
 // =============================================================================
+app.use(router);
 app.listen(config.api.port);
-console.log('API listening on port ' + port);
+console.log('API listening on port ' + config.api.port);
