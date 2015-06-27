@@ -16,7 +16,7 @@
 				<li ng-class="{ 'active': $root.controller === 'HomeCtrl' }"><a href="/#/">Início</a></li>
 				<li ng-class="{ 'active': $root.controller === 'SobreCtrl' }"><a href="/#/sobre"><span ng-bind="$root.aboutPage || 'Sobre'"></a></li>
 				<li ng-class="{ 'active': $root.controller === 'FotosCtrl' }"><a href="/#/fotos">Fotos</a></li>
-				<li ng-class="{ 'active': $root.controller === 'VideosCtrl' }"><a href="/#/videos">Vídeos</a></li>
+				<li ng-if="$root.fansite.video_count" ng-class="{ 'active': $root.controller === 'VideosCtrl' }"><a href="/#/videos">Vídeos</a></li>
 				<li ng-class="{ 'active': $root.controller === 'ContatoCtrl' }"><a href="/#/contato">Contato</a></li>
 			</ul>
 		</div>
