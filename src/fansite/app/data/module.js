@@ -1,10 +1,10 @@
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
-	var baseCache = 'http://localhost:2700/cache/';
+	var baseApi = 'http://localhost:2710/api/';
 
-	this.getCached = function (method) {
-		var uri = baseCache + 'content/' + $rootScope.fansite.id + '/' + method + '.json';
+	this.getApi = function (method) {
+		var uri = baseApi + $rootScope.fansite._id + '/' + method;
 		return $http.get(uri);
 	}
 });

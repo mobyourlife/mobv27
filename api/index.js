@@ -36,12 +36,12 @@ var router = express.Router();              // get an instance of the express Ro
 // LOAD CONTROLLERS
 var domain = require('./controllers/domain');
 var profile = require('./controllers/profile');
-//var feeds = require('./controllers/feeds');
+var feeds = require('./controllers/feeds');
 
 // REGISTER OUR ROUTES -------------------------------
-//router.get('/feeds/:direction/:index', feeds.getFeeds);
 router.get('/api/domain/:name', domain.getDomain);
 router.get('/api/:fansite/profile', profile.getProfile);
+router.get('/api/:fansite/feeds/:direction?/:index?', feeds.getFeeds);
 
 // START THE SERVER
 // =============================================================================

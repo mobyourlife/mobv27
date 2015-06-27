@@ -2,7 +2,7 @@ angular.module('MobYourLife.Data')
 
 .service('FeedsApi', function (BaseApi) {
 	this.getFeeds = function () {
-		var promise = BaseApi.getCached('feeds')
+		var promise = BaseApi.getApi('feeds')
 			.then(function (response) {
 				return response.data;
 			});
