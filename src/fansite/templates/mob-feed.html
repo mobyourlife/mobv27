@@ -5,7 +5,7 @@
 	</div> -->
 	<div class="panel-body">
 		<div class="row">
-			<div class="col-md-5">
+			<div ng-if="hasMedia" class="col-md-5">
 				<div ng-if="hasPicture" class="feed-picture media-box">
 					<img ng-src="{{ data.picture }}" spinner-on-load ng-alt="{{ data.story || data.message }}" class="img-responsive"/>
 				</div>
@@ -18,10 +18,10 @@
 				</div>
 				<div>
 					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="fa fa-thumbs-o-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
-					<a href="#" class="btn btn-default"><i class="fa fa-retweet fa-fw"></i></a>
+					<a href="#" class="btn btn-default"><i class="fa fa-share fa-fw"></i></a>
 				</div>
 			</div>
-			<div class="col-md-7">
+			<div ng-class="{ 'col-md-7': hasMedia, 'col-md-12': !hasMedia }">
 				<h4 ng-if="data.name" ng-bind="data.name"></h4>
 				<p>
 					<span ng-bind="data.time | displayDate" class="label label-info"></span>
@@ -29,6 +29,10 @@
 				</p>
 				<p ng-bind="data.message"></p>
 				<p ng-if="!data.message" ng-bind="data.story"></p>
+				<div ng-if="!hasMedia">
+					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="fa fa-thumbs-o-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
+					<a href="#" class="btn btn-default"><i class="fa fa-share fa-fw"></i></a>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -29418,7 +29418,7 @@ angular.module('MobYourLife')
 .controller('SobreCtrl', function ($rootScope, $scope) {
 	$scope.hotinfo = [];
 	
-	$rootScope.$broadcast('setPageTitle', 'Sobre');
+	$rootScope.$broadcast('setPageTitle', ($rootScope.aboutPage || 'Sobre'));
 
 	/* fanpage likes */
 	$scope.hotinfo.push({
@@ -29636,6 +29636,7 @@ angular.module('MobYourLife')
 		link: function (scope, element, attr) {
 			scope.hasPicture = (scope.data.type == 'photo');
 			scope.hasVideo = (scope.data.type == 'video');
+			scope.hasMedia = (scope.hasPicture || scope.hasVideo);
 		},
 		templateUrl: '/templates/mob-feed.html'
 	}
