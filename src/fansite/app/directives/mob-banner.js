@@ -43,6 +43,49 @@ angular.module('MobYourLife')
 					scope.$apply();
 				});
 			});
+
+			/* listen to carousel events */
+			$rootScope.$on('loadCarousel', function (ev, carousel) {
+				scope.background = null;
+				scope.carousel = carousel;
+				scope.activeIndex = -1;
+				scope.height = 350;
+				scope.chevron = (scope.height * 0.85);
+
+				/* defer scope apply to the next digest cycle to avoid a digest in progress */
+				$timeout(function() {
+					scope.$apply();
+				});
+
+				/* controls carousel state */
+				scope.carouselNavigate = function (to) {
+					if (to >= scope.carousel.length) {
+						to = 0;
+					}
+
+					if (to < 0) {
+						to = scope.carousel.length - 1;
+					}
+
+					scope.activeIndex = to;
+				}
+
+				scope.carouselNext = function () {
+					scope.carouselNavigate(scope.activeIndex + 1);
+				}
+
+				scope.carouselPrevious = function () {
+					scope.carouselNavigate(scope.activeIndex - 1);
+				}
+
+				var carouselTimeout = function() {
+					scope.carouselNext();
+					$timeout(function() { scope.$apply(); });
+					$timeout(carouselTimeout, (10 * 1000));
+				}
+
+				carouselTimeout();
+			});
 		},
 		templateUrl: '/templates/mob-banner.html'
 	}

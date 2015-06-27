@@ -35,7 +35,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window) {
+.run(function ($rootScope, $window, CarouselApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -46,6 +46,11 @@ angular.module('MobYourLife', [
 
 	/* get fansite info from preloaded */
 	$rootScope.fansite = window.thisFansite;
+
+	/* load carousel */
+	CarouselApi.getCarousel().then(function (data) {
+		$rootScope.$broadcast('loadCarousel', data);
+	});
 
 	/* set fansite display name */
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
@@ -63,6 +68,7 @@ angular.module('MobYourLife', [
 	});
 });
 
+require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');
 require('./data/profile');

@@ -39,6 +39,7 @@ var profile = require('./controllers/profile');
 var feeds = require('./controllers/feeds');
 var fotos = require('./controllers/fotos');
 var videos = require('./controllers/videos');
+var carousel = require('./controllers/carousel');
 
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
@@ -46,6 +47,7 @@ router.get('/api/:fansite/profile', profile.getProfile);
 router.get('/api/:fansite/feeds', feeds.getFeeds);
 router.get('/api/:fansite/fotos', fotos.getFotos);
 router.get('/api/:fansite/videos', videos.getVideos);
+router.get('/api/:fansite/carousel', carousel.getCarousel);
 
 // START THE SERVER
 // =============================================================================

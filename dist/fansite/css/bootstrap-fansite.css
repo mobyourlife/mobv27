@@ -35,6 +35,13 @@ img.brand-picture {
 .jumbo-pad {
   height: 2em; }
 
+.carousel {
+  margin-bottom: 2em; }
+
+.carousel-item {
+  background-repeat: no-repeat !important;
+  background-size: cover !important; }
+
 .hotinfo {
   margin: 0 2em; }
 
