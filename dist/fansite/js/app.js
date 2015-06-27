@@ -29880,8 +29880,9 @@ require('./directives/mob-logo');
 require('./directives/spinner-on-load');
 
 require('./filters/date');
+require('./filters/linebreaks');
 require('./filters/video');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/carousel":10,"./data/feeds":11,"./data/fotos":12,"./data/module":13,"./data/profile":14,"./data/videos":15,"./directives/mob-banner":16,"./directives/mob-feed":17,"./directives/mob-logo":18,"./directives/spinner-on-load":19,"./filters/date":21,"./filters/video":22,"angular":4,"angular-route":2}],21:[function(require,module,exports){
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/carousel":10,"./data/feeds":11,"./data/fotos":12,"./data/module":13,"./data/profile":14,"./data/videos":15,"./directives/mob-banner":16,"./directives/mob-feed":17,"./directives/mob-logo":18,"./directives/spinner-on-load":19,"./filters/date":21,"./filters/linebreaks":22,"./filters/video":23,"angular":4,"angular-route":2}],21:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('displayDate', function ($filter) {
@@ -29920,6 +29921,15 @@ angular.module('MobYourLife')
 	};
 });
 },{}],22:[function(require,module,exports){
+angular.module('MobYourLife')
+
+.filter('lineBreaks', function ($sce) {
+	return function(input) {
+		var ret = input.replace(/\n/g, '<br/>');
+		return $sce.trustAsHtml(ret);
+	}
+});
+},{}],23:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('video', function ($filter, $sce) {

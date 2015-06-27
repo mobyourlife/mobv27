@@ -86,4 +86,5 @@ require('./directives/mob-logo');
 require('./directives/spinner-on-load');
 
 require('./filters/date');
+require('./filters/linebreaks');
 require('./filters/video');

@@ -27,7 +27,7 @@
 					<span ng-bind="data.time | displayDate" class="label label-info"></span>
 					<!-- <span ng-bind="data.time | displayTime" class="label label-default"></span> -->
 				</p>
-				<p ng-bind="data.message"></p>
+				<p ng-bind-html="data.message | lineBreaks"></p>
 				<p ng-if="!data.message" ng-bind="data.story"></p>
 				<div ng-if="!hasMedia">
 					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="fa fa-thumbs-o-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
