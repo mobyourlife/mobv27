@@ -29604,6 +29604,17 @@ angular.module('MobYourLife')
 			scope.margin = 0;
 			scope.height = (scope.cover && scope.cover.height) || 250;
 
+			/* show cover background */
+			if (scope.cover && scope.cover.path && scope.cover.height) {
+				var path = scope.cover.path;
+
+				if (path.indexOf('http') == -1) {
+					path = '/uploads/' + path;
+				}
+
+				scope.background = 'background: url(' + path + ');';
+			}
+
 			/* in case banner is not shown, logo should be kept small to fit the navbar */
 			if (!scope.showBanner) {
 				$rootScope.$broadcast('disableBigLogo');
