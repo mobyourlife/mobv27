@@ -27,6 +27,11 @@ body {
     -o-transition: opacity 0.5s;
     transition: opacity 0.5s; }
 
+img.brand-picture {
+  margin-top: -10px;
+  width: 40px;
+  height: 40px; }
+
 /* image loading spinner */
 .media-box {
   position: relative;
