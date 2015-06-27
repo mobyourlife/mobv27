@@ -8,6 +8,7 @@ angular.module('MobYourLife')
 			alt: '='
 		},
 		link: function (scope, element, attr) {
+			scope.allowed = true;
 			scope.bigLogo = false;
 
 			if (!scope.margin) {
@@ -16,28 +17,41 @@ angular.module('MobYourLife')
 
 			/* choose wether big logo will be displayed based on settings and scrolling offset */
 			var setLogoSize = function (scrolling) {
-				scope.bigLogo = (scope.custom.path && scope.custom.width && !scrolling);
+				scope.bigLogo = (scope.allowed && scope.custom.path && scope.custom.width && !scrolling);
 			}
 
 			/* bind window's scroll event */
 			angular.element($window).bind('scroll', function () {
 				var scrolling = (this.pageYOffset >= 100);
-				$rootScope.$emit('resizeLogo', scrolling);
+				$rootScope.$broadcast('resizeLogo', {
+					scrolling: scrolling,
+					width: scope.custom.width
+				});
 			});
 
-			/* listen to logo resizeevents */
-			$rootScope.$on('resizeLogo', function (ev, scrolling) {
-				setLogoSize(scrolling);
+			/* listen to logo resize events */
+			$rootScope.$on('resizeLogo', function (ev, data) {
+				setLogoSize(data.scrolling);
 
 				/* defer scope apply to the next digest cycle to avoid a digest in progress */
 				$timeout(function() {
 					scope.$apply();
 				});
-			})
+			});
+
+			/* may disable big logo when there's no jumbotron */
+			$rootScope.$on('disableBigLogo', function () {
+				scope.allowed = false;
+				$rootScope.$broadcast('resizeLogo', {
+					width: scope.custom.width
+				});
+			});
 
 			/* defer first resize and issue an event to broadcast it to other dependent modules */
 			$timeout(function() {
-				$rootScope.$broadcast('resizeLogo');
+				$rootScope.$broadcast('resizeLogo', {
+					width: scope.custom.width
+				});
 			});
 		},
 		templateUrl: '/templates/mob-logo.html'

@@ -23,11 +23,7 @@
 	</div>
 </nav>
 
-<div class="jumbotron" ng-if="$root.show.jumbotron">
-	<div class="container">
-		<h1 ng-bind="$root.fansite.facebook.name"></h1>
-	</div>
-</div>
+<mob-banner fansite-name="$root.fansite.facebook.name" page-title="$root.pageTitle"></mob-banner>
 
 <div class="container">
 	<div ng-view></div>

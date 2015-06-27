@@ -58,6 +58,7 @@ require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
 
+require('./directives/mob-banner');
 require('./directives/mob-logo');
 require('./directives/spinner-on-load');
 

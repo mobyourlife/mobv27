@@ -32,6 +32,9 @@ img.brand-picture {
   width: 40px;
   height: 40px; }
 
+.jumbo-pad {
+  height: 2em; }
+
 /* image loading spinner */
 .media-box {
   position: relative;
