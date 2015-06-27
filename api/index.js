@@ -43,9 +43,9 @@ var videos = require('./controllers/videos');
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
 router.get('/api/:fansite/profile', profile.getProfile);
-router.get('/api/:fansite/feeds/:direction?/:index?', feeds.getFeeds);
-router.get('/api/:fansite/fotos/:direction?/:index?', fotos.getFotos);
-router.get('/api/:fansite/videos/:direction?/:index?', videos.getVideos);
+router.get('/api/:fansite/feeds', feeds.getFeeds);
+router.get('/api/:fansite/fotos', fotos.getFotos);
+router.get('/api/:fansite/videos', videos.getVideos);
 
 // START THE SERVER
 // =============================================================================

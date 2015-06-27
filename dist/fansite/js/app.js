@@ -29315,14 +29315,47 @@ angular.module('MobYourLife')
 },{}],7:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function ($scope, FeedsApi) {
-	FeedsApi.getFeeds()
-		.then(function (data) {
-			$scope.feeds = data;
-		})
-		.catch(function (err) {
-			console.error(err);
-		});
+.controller('HomeCtrl', function($rootScope, $scope, $window, FeedsApi) {
+	var busy = false;
+	$scope.feeds = [];
+
+	var getMoreFeeds = function () {
+		if (busy) {
+			return;
+		}
+
+		var args = [];
+		busy = true;
+
+		if ($scope.feeds.length > 0) {
+			var last = $scope.feeds.length - 1;
+			var item = $scope.feeds[last];
+			args['direction'] = 'before';
+			args['ne'] = item._id;
+			args['time'] = item.time;
+		}
+
+		FeedsApi.getFeeds(args)
+			.then(function (data) {
+				for (var i = 0; i < data.length; i++) {
+					$scope.feeds.push(data[i]);
+				}
+			})
+			.catch(function (err) {
+				console.error(err);
+			})
+			.finally(function () {
+				busy = false;
+			});
+	}
+
+	/* lore more content as the user scrolls */
+	$rootScope.$on('shouldLoadMoreContent', function() {
+		getMoreFeeds();
+	});
+
+	/* load first contents */
+	getMoreFeeds();
 });
 },{}],8:[function(require,module,exports){
 angular.module('MobYourLife')
@@ -29407,8 +29440,8 @@ angular.module('MobYourLife')
 angular.module('MobYourLife.Data')
 
 .service('FeedsApi', function (BaseApi) {
-	this.getFeeds = function () {
-		var promise = BaseApi.getApi('feeds')
+	this.getFeeds = function (args) {
+		var promise = BaseApi.getApi('feeds', args)
 			.then(function (response) {
 				return response.data;
 			});
@@ -29433,9 +29466,10 @@ angular.module('MobYourLife.Data', [])
 .service('BaseApi', function ($rootScope, $http) {
 	var baseApi = 'http://localhost:2710/api/';
 
-	this.getApi = function (method) {
+	this.getApi = function (method, args) {
 		var uri = baseApi + $rootScope.fansite._id + '/' + method;
-		return $http.get(uri);
+		var params = args ? { params: args } : {};
+		return $http.get(uri, params);
 	}
 });
 },{}],13:[function(require,module,exports){
@@ -29624,7 +29658,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope) {
+.run(function ($rootScope, $window) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -29639,6 +29673,17 @@ angular.module('MobYourLife', [
 	/* set fansite display name */
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
+
+	/* watch for page scroll to load more content */
+	angular.element($window).bind('scroll', function () {
+		var position = this.pageYOffset;
+		var bounds = document.body.clientHeight - this.innerHeight;
+		var scrolling = (bounds - position) < 500;
+
+		if (scrolling) {
+			$rootScope.$emit('shouldLoadMoreContent');
+		}
+	});
 });
 
 require('./data/feeds');

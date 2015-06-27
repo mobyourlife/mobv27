@@ -35,7 +35,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope) {
+.run(function ($rootScope, $window) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -50,6 +50,17 @@ angular.module('MobYourLife', [
 	/* set fansite display name */
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
+
+	/* watch for page scroll to load more content */
+	angular.element($window).bind('scroll', function () {
+		var position = this.pageYOffset;
+		var bounds = document.body.clientHeight - this.innerHeight;
+		var scrolling = (bounds - position) < 500;
+
+		if (scrolling) {
+			$rootScope.$emit('shouldLoadMoreContent');
+		}
+	});
 });
 
 require('./data/feeds');
