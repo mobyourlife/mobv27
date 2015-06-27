@@ -59,8 +59,8 @@ img.spinner-hide {
 
 	img, .media-box, .spinner {
 		width: 100%;
-		height: 200px;
-		max-height: 250px;
+		min-height: 200px;
+		max-height: 400px;
 	}
 }
 

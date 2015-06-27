@@ -72,8 +72,8 @@ img.spinner-hide {
 
 .feed img, .feed .media-box, .feed .spinner {
   width: 100%;
-  height: 200px;
-  max-height: 250px; }
+  min-height: 200px;
+  max-height: 400px; }
 
 .foto img {
   object-fit: cover; }
