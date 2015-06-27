@@ -19,15 +19,16 @@
 				<div>
 					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="fa fa-thumbs-o-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
 					<a href="#" class="btn btn-default"><i class="fa fa-retweet fa-fw"></i></a>
-					<span class="pull-right">
-						<span ng-bind="data.time | displayDate" class="label label-default"></span>
-						<span ng-bind="data.time | displayTime" class="label label-default"></span>
-					</span>
 				</div>
 			</div>
 			<div class="col-md-7">
 				<h4 ng-if="data.name" ng-bind="data.name"></h4>
+				<p>
+					<span ng-bind="data.time | displayDate" class="label label-info"></span>
+					<!-- <span ng-bind="data.time | displayTime" class="label label-default"></span> -->
+				</p>
 				<p ng-bind="data.message"></p>
+				<p ng-if="!data.message" ng-bind="data.story"></p>
 			</div>
 		</div>
 	</div>
