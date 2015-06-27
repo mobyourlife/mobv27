@@ -42,6 +42,9 @@ img.brand-picture {
   background-repeat: no-repeat !important;
   background-size: cover !important; }
 
+.enlarge {
+  cursor: pointer; }
+
 .hotinfo {
   margin: 0 2em; }
 
@@ -100,6 +103,27 @@ img.spinner-hide {
 
 footer {
   text-align: center; }
+
+.enlarge-container {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer; }
+
+.large-overlay {
+  z-index: 9000;
+  background-image: url("/images/stripes.gif");
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+
+.large-image {
+  z-index: 9100;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {

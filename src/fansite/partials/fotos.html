@@ -1,3 +1,3 @@
 <div ng-repeat="item in fotos" class="col-xs-12 col-sm-6 col-md-4 media-box foto">
-	<img ng-src="{{ item.source }}" spinner-on-load class="img-thumbnail" alt="{{ item.name }}" />
+	<img ng-src="{{ item.source }}" spinner-on-load class="img-thumbnail enlarge" ng-click="$root.enlargeImage(item.source)" alt="{{ item.name }}" />
 </div>

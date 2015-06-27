@@ -7,7 +7,7 @@
 		<div class="row">
 			<div ng-if="hasMedia" class="col-md-5">
 				<div ng-if="hasPicture" class="feed-picture media-box">
-					<img ng-src="{{ data.picture }}" spinner-on-load ng-alt="{{ data.story || data.message }}" class="img-responsive"/>
+					<img ng-src="{{ data.picture }}" ng-click="$root.enlargeImage(data.picture)" spinner-on-load ng-alt="{{ data.story || data.message }}" class="img-responsive enlarge"/>
 				</div>
 				<div ng-if="hasVideo">
 					<div class="video-container">

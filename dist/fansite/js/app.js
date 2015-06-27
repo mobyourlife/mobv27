@@ -29860,6 +29860,26 @@ angular.module('MobYourLife', [
 			$rootScope.$emit('shouldLoadMoreContent');
 		}
 	});
+
+	/* helper to enlarge images */
+	$rootScope.enlargeImage = function (image) {
+		var elems = document.getElementsByClassName('enlarge-container');
+
+		for (var i = 0; i < elems.length; i++) {
+			elems[i].setAttribute('style', 'display:inline;');
+		}
+
+		var lg = document.getElementById('overlay-image');
+		lg.setAttribute('style', 'display: inline; background-image: url(\'' + image + '\');');
+	}
+
+	 $rootScope.closeImage = function () {
+		var elems = document.getElementsByClassName('enlarge-container');
+
+		for (var i = 0; i < elems.length; i++) {
+			elems[i].setAttribute('style', '');
+		}
+	 }
 });
 
 require('./data/carousel');
