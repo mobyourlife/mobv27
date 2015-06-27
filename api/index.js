@@ -37,11 +37,15 @@ var router = express.Router();              // get an instance of the express Ro
 var domain = require('./controllers/domain');
 var profile = require('./controllers/profile');
 var feeds = require('./controllers/feeds');
+var fotos = require('./controllers/fotos');
+var videos = require('./controllers/videos');
 
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
 router.get('/api/:fansite/profile', profile.getProfile);
 router.get('/api/:fansite/feeds/:direction?/:index?', feeds.getFeeds);
+router.get('/api/:fansite/fotos/:direction?/:index?', fotos.getFotos);
+router.get('/api/:fansite/videos/:direction?/:index?', videos.getVideos);
 
 // START THE SERVER
 // =============================================================================
