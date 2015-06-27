@@ -8,7 +8,7 @@
 				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="">
-				<mob-logo custom="$root.fansite.logo" picture="$root.fansite.facebook.picture" alt="$root.fansite.facebook.name"></mob-logo>
+				<mob-logo custom="$root.fansite.logo" picture="$root.fansite.facebook.picture" alt="$root.displayName"></mob-logo>
 			</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
@@ -23,7 +23,7 @@
 	</div>
 </nav>
 
-<mob-banner fansite-name="$root.fansite.facebook.name" page-title="$root.pageTitle"></mob-banner>
+<mob-banner fansite-name="$root.displayName" page-title="$root.pageTitle"></mob-banner>
 
 <div class="container">
 	<div ng-view></div>

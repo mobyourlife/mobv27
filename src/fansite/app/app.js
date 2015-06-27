@@ -44,7 +44,11 @@ angular.module('MobYourLife', [
 		jumbotron: true
 	};
 
+	/* get fansite info from preloaded */
 	$rootScope.fansite = window.thisFansite;
+
+	/* set fansite display name */
+	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 });
 
 require('./data/feeds');
