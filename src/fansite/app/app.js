@@ -86,6 +86,34 @@ angular.module('MobYourLife', [
 			elems[i].setAttribute('style', '');
 		}
 	 }
+
+	/* add Facebook SDK */
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId: '675062689245409',
+			xfbml: true,
+			version: 'v2.3'
+		});
+	};
+
+	(function(d, s, id) {
+		var js;
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/pt_BR/sdk.js";
+		document.body.appendChild(js);
+	}(document, 'script', 'facebook-jssdk'));
+
+	/* invoke Facebook share dialog */
+	$rootScope.fbShare = function (url) {
+		FB.ui({
+			method: 'share',
+			href: url
+		}, function(response) {});
+	}
 });
 
 require('./data/carousel');
