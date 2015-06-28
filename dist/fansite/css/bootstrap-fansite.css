@@ -130,6 +130,22 @@ footer {
   background-size: contain;
   background-position: center; }
 
+.mi-2x {
+  font-size: 2em; }
+
+.mi-3x {
+  font-size: 3em; }
+
+.mi-4x {
+  font-size: 4em; }
+
+.mi-5x {
+  font-size: 5em; }
+
+.mi-fw {
+  width: 1.28571429em;
+  text-align: center; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;

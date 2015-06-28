@@ -1411,7 +1411,7 @@ var swapExtraCss = function () {
 	var link = document.createElement('link');
 	link.setAttribute('rel', 'stylesheet');
 	link.setAttribute('type', 'text/css');
-	link.setAttribute('href', 'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css');
+	link.setAttribute('href', '/css/fontmob.min.css');
 	document.head.appendChild(link);
 	document.getElementById('minimalist').remove();
 }

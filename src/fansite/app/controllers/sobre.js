@@ -7,7 +7,7 @@ angular.module('MobYourLife')
 
 	/* fanpage likes */
 	$scope.hotinfo.push({
-		icon: 'thumbs-o-up',
+		icon: 'thumbs-up',
 		label: 'Curtidas',
 		value: $rootScope.fansite.facebook.stats.likes
 	});
@@ -15,7 +15,7 @@ angular.module('MobYourLife')
 	/* fanpage ratings */
 	if ($rootScope.fansite.ratings && $rootScope.fansite.ratings_average) {
 		$scope.hotinfo.push({
-			icon: 'star-o',
+			icon: 'star-empty',
 			label: 'Avaliação geral',
 			value: $rootScope.fansite.ratings_average.toFixed(1).replace('.', ',')
 		});
@@ -24,7 +24,7 @@ angular.module('MobYourLife')
 	/* company foundation */
 	if ($rootScope.fansite.facebook.info.company && $rootScope.fansite.facebook.info.company.founded) {
 		$scope.hotinfo.push({
-			icon: 'building-o',
+			icon: 'building',
 			label: 'Fundação',
 			value: $rootScope.fansite.facebook.info.company.founded
 		});
@@ -33,7 +33,7 @@ angular.module('MobYourLife')
 	/* band record label */
 	if ($rootScope.fansite.facebook.info.band && $rootScope.fansite.facebook.info.band.record_label) {
 		$scope.hotinfo.push({
-			icon: 'flag-o',
+			icon: 'headphones',
 			label: 'Gravadora',
 			value: $rootScope.fansite.facebook.info.band.record_label
 		});
@@ -42,7 +42,7 @@ angular.module('MobYourLife')
 	/* band booking agent */
 	if ($rootScope.fansite.facebook.info.band && $rootScope.fansite.facebook.info.band.booking_agent) {
 		$scope.hotinfo.push({
-			icon: 'star-o',
+			icon: 'user-secret',
 			label: 'Gravadora',
 			value: $rootScope.fansite.facebook.info.band.booking_agent
 		});
@@ -51,7 +51,7 @@ angular.module('MobYourLife')
 	/* film director */
 	if ($rootScope.fansite.facebook.info.film && $rootScope.fansite.facebook.info.film.directed_by) {
 		$scope.hotinfo.push({
-			icon: 'eye',
+			icon: 'user-secret',
 			label: 'Diretor',
 			value: $rootScope.fansite.facebook.info.film.directed_by
 		});
