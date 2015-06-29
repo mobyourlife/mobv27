@@ -5,10 +5,12 @@ module.exports = {
 	getCarousel: function (req, res) {
 		Album.findOne({ ref: req.params.fansite, special: 'banner' }, function (err, one) {
 			if (err) {
+				res.status(500).send();
 				throw err;
 			}
 
 			if (!one) {
+				res.status(200).send();
 				return;
 			}
 
