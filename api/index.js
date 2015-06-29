@@ -40,6 +40,8 @@ var feeds = require('./controllers/feeds');
 var fotos = require('./controllers/fotos');
 var videos = require('./controllers/videos');
 var carousel = require('./controllers/carousel');
+var textpages = require('./controllers/textpages');
+var outmail = require('./controllers/outmail');
 
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
@@ -48,6 +50,10 @@ router.get('/api/:fansite/feeds', feeds.getFeeds);
 router.get('/api/:fansite/fotos', fotos.getFotos);
 router.get('/api/:fansite/videos', videos.getVideos);
 router.get('/api/:fansite/carousel', carousel.getCarousel);
+router.get('/api/:fansite/carousel', textpages.getTextPages);
+
+// POST METHODS --------------------------------------
+router.post('/api/:fansite/outmail', outmail.postNewMail);
 
 // START THE SERVER
 // =============================================================================

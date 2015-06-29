@@ -119,7 +119,9 @@ angular.module('MobYourLife', [
 require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');
+require('./data/outmail');
 require('./data/profile');
+require('./data/textpages');
 require('./data/videos');
 
 require('./controllers/inicio');

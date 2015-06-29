@@ -8,4 +8,10 @@ angular.module('MobYourLife.Data', [])
 		var params = args ? { params: args } : {};
 		return $http.get(uri, params);
 	}
+
+	this.postApi = function (method, args) {
+		var uri = baseApi + $rootScope.fansite._id + '/' + method;
+		var params = args ? { params: args } : {};
+		return $http.post(uri, params);
+	}
 });

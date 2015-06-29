@@ -20,7 +20,7 @@ module.exports = {
 
 	dist: {
 		extras: dist,
-		fonts: dist + 'fonts/',
+		fonts: dist + 'font/',
 		html: dist,
 		images: dist + 'images/',
 		js: dist + 'js/',
