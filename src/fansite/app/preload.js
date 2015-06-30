@@ -6,7 +6,7 @@ window.thisFansite = {};
 
 /* mob base api */
 var BaseApi = 'http://api.mobyourlife.com.br/api/';
-var BaseStatic = 'http://static.mobyourlife.com.br/';
+var BaseStatic = '/';
 
 var MobApi = {
 	api: function (methodName) {
