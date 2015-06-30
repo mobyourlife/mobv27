@@ -1322,8 +1322,8 @@ var request = require('superagent');
 window.thisFansite = {};
 
 /* mob base api */
-var BaseApi = 'http://localhost:2710/api/';
-var BaseStatic = 'http://localhost:2700/';
+var BaseApi = 'http://api.mobyourlife.com.br/api/';
+var BaseStatic = 'http://static.mobyourlife.com.br/';
 
 var MobApi = {
 	api: function (methodName) {
