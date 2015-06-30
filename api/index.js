@@ -50,7 +50,8 @@ router.get('/api/:fansite/feeds', feeds.getFeeds);
 router.get('/api/:fansite/fotos', fotos.getFotos);
 router.get('/api/:fansite/videos', videos.getVideos);
 router.get('/api/:fansite/carousel', carousel.getCarousel);
-router.get('/api/:fansite/carousel', textpages.getTextPages);
+router.get('/api/:fansite/textpages', textpages.getTextPages);
+router.get('/api/:fansite/textpages/:page', textpages.getPageBody);
 
 // POST METHODS --------------------------------------
 router.post('/api/:fansite/outmail', outmail.postNewMail);

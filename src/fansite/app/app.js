@@ -18,6 +18,10 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/sobre.html',
 			controller: 'SobreCtrl'
 		})
+		.when('/p/:page', {
+			templateUrl: '/partials/textpage.html',
+			controller: 'TextPageCtrl'
+		})
 		.when('/fotos', {
 			templateUrl: '/partials/fotos.html',
 			controller: 'FotosCtrl'
@@ -35,7 +39,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window, CarouselApi) {
+.run(function ($rootScope, $window, CarouselApi, TextPagesApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -55,6 +59,12 @@ angular.module('MobYourLife', [
 	/* set fansite display name */
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
+
+	/* load text pages */
+	TextPagesApi.getTextPages()
+		.then(function (data) {
+			$rootScope.textPages = data;
+		});
 
 	/* watch for page scroll to load more content */
 	angular.element($window).bind('scroll', function () {
@@ -129,6 +139,7 @@ require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
+require('./controllers/textpage');
 
 require('./directives/mob-banner');
 require('./directives/mob-feed');

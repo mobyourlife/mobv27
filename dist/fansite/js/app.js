@@ -29504,6 +29504,17 @@ angular.module('MobYourLife')
 },{}],9:[function(require,module,exports){
 angular.module('MobYourLife')
 
+.controller('TextPageCtrl', function ($rootScope, $scope, $routeParams, $sce, TextPagesApi) {
+	TextPagesApi.getPageBody($routeParams.page)
+		.then(function (data) {
+			$rootScope.$broadcast('setPageTitle', data.title);
+			$rootScope.activeTextPage = data.path;
+			$scope.pageBody = $sce.trustAsHtml(data.body);
+		});
+});
+},{}],10:[function(require,module,exports){
+angular.module('MobYourLife')
+
 .controller('VideosCtrl', function ($rootScope, $scope, VideosApi) {
 	var busy = false;
 	$scope.videos = [];
@@ -29548,7 +29559,7 @@ angular.module('MobYourLife')
 	/* load first contents */
 	getMoreVideos();
 });
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('CarouselApi', function (BaseApi) {
@@ -29560,7 +29571,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('FeedsApi', function (BaseApi) {
@@ -29572,7 +29583,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('FotosApi', function (BaseApi) {
@@ -29584,7 +29595,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
@@ -29602,7 +29613,7 @@ angular.module('MobYourLife.Data', [])
 		return $http.post(uri, params);
 	}
 });
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('OutmailApi', function (BaseApi) {
@@ -29614,7 +29625,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('ProfileApi', function (BaseApi) {
@@ -29626,7 +29637,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('TextPagesApi', function (BaseApi) {
@@ -29637,8 +29648,16 @@ angular.module('MobYourLife.Data')
 			});
 		return promise;
 	}
+
+	this.getPageBody = function (page, args) {
+		var promise = BaseApi.getApi('textpages/' + page, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
 });
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('VideosApi', function (BaseApi) {
@@ -29650,7 +29669,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobBanner', function ($rootScope, $timeout) {
@@ -29743,7 +29762,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-banner.html'
 	}
 });
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobFeed', function () {
@@ -29759,7 +29778,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-feed.html'
 	}
 });
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobLogo', function ($rootScope, $timeout, $window) {
@@ -29819,7 +29838,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-logo.html'
 	}
 });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('spinnerOnLoad', function() {
@@ -29841,7 +29860,7 @@ angular.module('MobYourLife')
         }
     }
 });
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29862,6 +29881,10 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/sobre.html',
 			controller: 'SobreCtrl'
 		})
+		.when('/p/:page', {
+			templateUrl: '/partials/textpage.html',
+			controller: 'TextPageCtrl'
+		})
 		.when('/fotos', {
 			templateUrl: '/partials/fotos.html',
 			controller: 'FotosCtrl'
@@ -29879,7 +29902,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window, CarouselApi) {
+.run(function ($rootScope, $window, CarouselApi, TextPagesApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -29899,6 +29922,12 @@ angular.module('MobYourLife', [
 	/* set fansite display name */
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
+
+	/* load text pages */
+	TextPagesApi.getTextPages()
+		.then(function (data) {
+			$rootScope.textPages = data;
+		});
 
 	/* watch for page scroll to load more content */
 	angular.element($window).bind('scroll', function () {
@@ -29973,6 +30002,7 @@ require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
+require('./controllers/textpage');
 
 require('./directives/mob-banner');
 require('./directives/mob-feed');
@@ -29982,7 +30012,7 @@ require('./directives/spinner-on-load');
 require('./filters/date');
 require('./filters/linebreaks');
 require('./filters/video');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/videos":9,"./data/carousel":10,"./data/feeds":11,"./data/fotos":12,"./data/module":13,"./data/outmail":14,"./data/profile":15,"./data/textpages":16,"./data/videos":17,"./directives/mob-banner":18,"./directives/mob-feed":19,"./directives/mob-logo":20,"./directives/spinner-on-load":21,"./filters/date":23,"./filters/linebreaks":24,"./filters/video":25,"angular":4,"angular-route":2}],23:[function(require,module,exports){
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/textpage":9,"./controllers/videos":10,"./data/carousel":11,"./data/feeds":12,"./data/fotos":13,"./data/module":14,"./data/outmail":15,"./data/profile":16,"./data/textpages":17,"./data/videos":18,"./directives/mob-banner":19,"./directives/mob-feed":20,"./directives/mob-logo":21,"./directives/spinner-on-load":22,"./filters/date":24,"./filters/linebreaks":25,"./filters/video":26,"angular":4,"angular-route":2}],24:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('displayDate', function ($filter) {
@@ -30020,7 +30050,7 @@ angular.module('MobYourLife')
 		return _date.toUpperCase();
 	};
 });
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('lineBreaks', function ($sce) {
@@ -30033,7 +30063,7 @@ angular.module('MobYourLife')
 		return $sce.trustAsHtml(ret);
 	}
 });
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('video', function ($filter, $sce) {
@@ -30060,4 +30090,4 @@ angular.module('MobYourLife')
 		return $sce.trustAsResourceUrl(_embed);
 	};
 });
-},{}]},{},[22])
+},{}]},{},[23])

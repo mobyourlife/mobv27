@@ -8,4 +8,12 @@ angular.module('MobYourLife.Data')
 			});
 		return promise;
 	}
+
+	this.getPageBody = function (page, args) {
+		var promise = BaseApi.getApi('textpages/' + page, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
 });
