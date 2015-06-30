@@ -4,7 +4,7 @@
 // =============================================================================
 
 // load config
-var config = require('../config/config');
+var config = require('../config');
 
 // call the packages we need
 var express    = require('express');        // call express

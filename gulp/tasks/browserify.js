@@ -7,11 +7,13 @@ var config = require('../config'),
 	uglify = require('gulp-uglify'),
 	rename = require('gulp-rename'),
 	sourcemaps = require('gulp-sourcemaps'),
-	livereload = require('gulp-livereload');
+	livereload = require('gulp-livereload'),
+	replace = require('gulp-token-replace');
 
 gulp.task('browserify_app', function () {
 	gulp.src(config.src.js.app)
 		.pipe(browserify())
+		.pipe(replace(config.placeholders))
 		.pipe(rename('app.js'))
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())
@@ -32,6 +34,7 @@ gulp.task('browserify_app', function () {
 gulp.task('browserify_preload', function () {
 	gulp.src(config.src.js.preload)
 		.pipe(browserify())
+		.pipe(replace(config.placeholders))
 		.pipe(rename('preload.js'))
 		.pipe(gulp.dest(config.dist.js))
 		.pipe(debug())

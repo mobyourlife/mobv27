@@ -1,3 +1,5 @@
+var server = require('../config');
+
 var bower = './bower_components/';
 var src = './src/fansite/';
 var dist = './dist/fansite/';
@@ -31,5 +33,13 @@ module.exports = {
 		sass: [
 			bower + './bootstrap-sass/assets/stylesheets/'
 		]
+	},
+
+	placeholders: {
+		prefix: '{#',
+		suffix: '#}',
+		tokens: {
+			config: server
+		}
 	}
 };

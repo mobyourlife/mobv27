@@ -29599,7 +29599,7 @@ angular.module('MobYourLife.Data')
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
-	var baseApi = 'http://api.mobyourlife.com.br/api/';
+	var baseApi = 'http://localhost:2710/api/';
 
 	this.getApi = function (method, args) {
 		var uri = baseApi + $rootScope.fansite._id + '/' + method;

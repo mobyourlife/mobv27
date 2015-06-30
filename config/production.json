@@ -3,7 +3,8 @@
 		"port": 2700
 	},
 	"api": {
-		"port": 2710,
+		"host": "api.mobyourlife.com.br",
+		"port": 80,
 		"database": "mongodb://localhost:27017/MobYourLife"
 	}
 }

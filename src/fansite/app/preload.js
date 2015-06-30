@@ -5,7 +5,7 @@ var request = require('superagent');
 window.thisFansite = {};
 
 /* mob base api */
-var BaseApi = 'http://api.mobyourlife.com.br/api/';
+var BaseApi = 'http://{#config.api.host#}:{#config.api.port#}/api/';
 var BaseStatic = '/';
 
 var MobApi = {

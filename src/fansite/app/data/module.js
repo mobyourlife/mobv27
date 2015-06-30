@@ -1,7 +1,7 @@
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
-	var baseApi = 'http://api.mobyourlife.com.br/api/';
+	var baseApi = 'http://{#config.api.host#}:{#config.api.port#}/api/';
 
 	this.getApi = function (method, args) {
 		var uri = baseApi + $rootScope.fansite._id + '/' + method;
