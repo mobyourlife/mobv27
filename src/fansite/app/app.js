@@ -26,6 +26,10 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/fotos.html',
 			controller: 'FotosCtrl'
 		})
+		.when('/a/:page', {
+			templateUrl: '/partials/fotos.html',
+			controller: 'FotosCtrl'
+		})
 		.when('/videos', {
 			templateUrl: '/partials/videos.html',
 			controller: 'VideosCtrl'
@@ -39,7 +43,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window, CarouselApi, TextPagesApi) {
+.run(function ($rootScope, $window, CarouselApi, TextPagesApi, AlbumPagesApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -61,10 +65,28 @@ angular.module('MobYourLife', [
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
 
 	/* load text pages */
-	TextPagesApi.getTextPages()
-		.then(function (data) {
-			$rootScope.textPages = data;
-		});
+	var loadTextPages = function () {
+		TextPagesApi.getTextPages()
+			.then(function (data) {
+				$rootScope.textPages = data;
+			})
+			.catch(function (err) {
+				loadTextPages();
+			});
+	}
+	loadTextPages();
+
+	/* load album pages */
+	var loadAlbumPages = function () {
+		AlbumPagesApi.getAlbumPages()
+			.then(function (data) {
+				$rootScope.albumPages = data;
+			})
+			.catch(function (err) {
+				loadAlbumPages();
+			});
+	}
+	loadAlbumPages();
 
 	/* watch for page scroll to load more content */
 	angular.element($window).bind('scroll', function () {
@@ -126,6 +148,7 @@ angular.module('MobYourLife', [
 	}
 });
 
+require('./data/albumpages');
 require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');

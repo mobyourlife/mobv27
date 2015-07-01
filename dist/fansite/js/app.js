@@ -29323,11 +29323,21 @@ angular.module('MobYourLife')
 },{}],6:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('FotosCtrl', function ($rootScope, $scope, $timeout, FotosApi) {
+.controller('FotosCtrl', function ($rootScope, $scope, $routeParams, $timeout, FotosApi) {
 	var busy = false;
 	$scope.fotos = [];
 
 	$rootScope.$broadcast('setPageTitle', 'Fotos');
+	$rootScope.activeTextPage = $routeParams.page || '';
+
+	if ($routeParams.page) {
+		for (var i = 0; i < $rootScope.albumPages.length; i++) {
+			var cur = $rootScope.albumPages[i];
+			if (cur.path === $routeParams.page) {
+				$rootScope.$broadcast('setPageTitle', cur.name);
+			}
+		}
+	}
 
 	var getMoreFotos = function (callback) {
 		if (busy) {
@@ -29343,6 +29353,15 @@ angular.module('MobYourLife')
 			args['direction'] = 'before';
 			args['ne'] = item._id;
 			args['time'] = item.time;
+		}
+
+		if ($routeParams.page) {
+			var regex = /-([0-9]+)$/;
+			var match = $routeParams.page.match(regex);
+
+			if (match) {
+				args['page'] = match[1];
+			}
 		}
 
 		FotosApi.getFotos(args)
@@ -29581,6 +29600,18 @@ angular.module('MobYourLife')
 },{}],11:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
+.service('AlbumPagesApi', function (BaseApi) {
+	this.getAlbumPages = function (args) {
+		var promise = BaseApi.getApi('albumpages', args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+});
+},{}],12:[function(require,module,exports){
+angular.module('MobYourLife.Data')
+
 .service('CarouselApi', function (BaseApi) {
 	this.getCarousel = function (args) {
 		var promise = BaseApi.getApi('carousel')
@@ -29590,7 +29621,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('FeedsApi', function (BaseApi) {
@@ -29602,7 +29633,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('FotosApi', function (BaseApi) {
@@ -29614,7 +29645,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
@@ -29632,7 +29663,7 @@ angular.module('MobYourLife.Data', [])
 		return $http.post(uri, params);
 	}
 });
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('OutmailApi', function (BaseApi) {
@@ -29644,7 +29675,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('ProfileApi', function (BaseApi) {
@@ -29656,7 +29687,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('TextPagesApi', function (BaseApi) {
@@ -29676,7 +29707,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 angular.module('MobYourLife.Data')
 
 .service('VideosApi', function (BaseApi) {
@@ -29688,7 +29719,7 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 });
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobBanner', function ($rootScope, $timeout) {
@@ -29790,7 +29821,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-banner.html'
 	}
 });
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobFeed', function () {
@@ -29806,7 +29837,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-feed.html'
 	}
 });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('mobLogo', function ($rootScope, $timeout, $window) {
@@ -29866,7 +29897,7 @@ angular.module('MobYourLife')
 		templateUrl: '/templates/mob-logo.html'
 	}
 });
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .directive('spinnerOnLoad', function() {
@@ -29888,7 +29919,7 @@ angular.module('MobYourLife')
         }
     }
 });
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -29917,6 +29948,10 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/fotos.html',
 			controller: 'FotosCtrl'
 		})
+		.when('/a/:page', {
+			templateUrl: '/partials/fotos.html',
+			controller: 'FotosCtrl'
+		})
 		.when('/videos', {
 			templateUrl: '/partials/videos.html',
 			controller: 'VideosCtrl'
@@ -29930,7 +29965,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window, CarouselApi, TextPagesApi) {
+.run(function ($rootScope, $window, CarouselApi, TextPagesApi, AlbumPagesApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -29952,10 +29987,28 @@ angular.module('MobYourLife', [
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
 
 	/* load text pages */
-	TextPagesApi.getTextPages()
-		.then(function (data) {
-			$rootScope.textPages = data;
-		});
+	var loadTextPages = function () {
+		TextPagesApi.getTextPages()
+			.then(function (data) {
+				$rootScope.textPages = data;
+			})
+			.catch(function (err) {
+				loadTextPages();
+			});
+	}
+	loadTextPages();
+
+	/* load album pages */
+	var loadAlbumPages = function () {
+		AlbumPagesApi.getAlbumPages()
+			.then(function (data) {
+				$rootScope.albumPages = data;
+			})
+			.catch(function (err) {
+				loadAlbumPages();
+			});
+	}
+	loadAlbumPages();
 
 	/* watch for page scroll to load more content */
 	angular.element($window).bind('scroll', function () {
@@ -30017,6 +30070,7 @@ angular.module('MobYourLife', [
 	}
 });
 
+require('./data/albumpages');
 require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');
@@ -30040,7 +30094,7 @@ require('./directives/spinner-on-load');
 require('./filters/date');
 require('./filters/linebreaks');
 require('./filters/video');
-},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/textpage":9,"./controllers/videos":10,"./data/carousel":11,"./data/feeds":12,"./data/fotos":13,"./data/module":14,"./data/outmail":15,"./data/profile":16,"./data/textpages":17,"./data/videos":18,"./directives/mob-banner":19,"./directives/mob-feed":20,"./directives/mob-logo":21,"./directives/spinner-on-load":22,"./filters/date":24,"./filters/linebreaks":25,"./filters/video":26,"angular":4,"angular-route":2}],24:[function(require,module,exports){
+},{"./controllers/contato":5,"./controllers/fotos":6,"./controllers/inicio":7,"./controllers/sobre":8,"./controllers/textpage":9,"./controllers/videos":10,"./data/albumpages":11,"./data/carousel":12,"./data/feeds":13,"./data/fotos":14,"./data/module":15,"./data/outmail":16,"./data/profile":17,"./data/textpages":18,"./data/videos":19,"./directives/mob-banner":20,"./directives/mob-feed":21,"./directives/mob-logo":22,"./directives/spinner-on-load":23,"./filters/date":25,"./filters/linebreaks":26,"./filters/video":27,"angular":4,"angular-route":2}],25:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('displayDate', function ($filter) {
@@ -30078,7 +30132,7 @@ angular.module('MobYourLife')
 		return _date.toUpperCase();
 	};
 });
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('lineBreaks', function ($sce) {
@@ -30091,7 +30145,7 @@ angular.module('MobYourLife')
 		return $sce.trustAsHtml(ret);
 	}
 });
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('video', function ($filter, $sce) {
@@ -30118,4 +30172,4 @@ angular.module('MobYourLife')
 		return $sce.trustAsResourceUrl(_embed);
 	};
 });
-},{}]},{},[23])
+},{}]},{},[24])

@@ -1,10 +1,20 @@
 angular.module('MobYourLife')
 
-.controller('FotosCtrl', function ($rootScope, $scope, $timeout, FotosApi) {
+.controller('FotosCtrl', function ($rootScope, $scope, $routeParams, $timeout, FotosApi) {
 	var busy = false;
 	$scope.fotos = [];
 
 	$rootScope.$broadcast('setPageTitle', 'Fotos');
+	$rootScope.activeTextPage = $routeParams.page || '';
+
+	if ($routeParams.page) {
+		for (var i = 0; i < $rootScope.albumPages.length; i++) {
+			var cur = $rootScope.albumPages[i];
+			if (cur.path === $routeParams.page) {
+				$rootScope.$broadcast('setPageTitle', cur.name);
+			}
+		}
+	}
 
 	var getMoreFotos = function (callback) {
 		if (busy) {
@@ -20,6 +30,15 @@ angular.module('MobYourLife')
 			args['direction'] = 'before';
 			args['ne'] = item._id;
 			args['time'] = item.time;
+		}
+
+		if ($routeParams.page) {
+			var regex = /-([0-9]+)$/;
+			var match = $routeParams.page.match(regex);
+
+			if (match) {
+				args['page'] = match[1];
+			}
 		}
 
 		FotosApi.getFotos(args)

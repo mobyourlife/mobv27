@@ -10,6 +10,10 @@ module.exports = {
 			args.time = { $lte: req.query.time };
 		}
 
+		if (req.query.page) {
+			args.album_id = req.query.page;
+		}
+
 		Photo.find(args).sort({ time: -1 }).limit(5).exec(function (err, data) {
 			if (err) {
 				throw err;
