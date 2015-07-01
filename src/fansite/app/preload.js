@@ -56,8 +56,11 @@ var loadHtml = function(callback) {
 	request
 		.get(MobApi.template('layout'))
 		.end(function (err, res) {
-			if (err) {
-				console.error(err);
+			if (err || !res.ok) {
+				console.error(err || 'Failed loadHtml, trying again...');
+				setTimeout(function() {
+					loadHtml(callback);
+				}, 100);
 				return;
 			}
 
@@ -104,8 +107,11 @@ var loadMe = function(fansiteId) {
 	request
 		.get(MobApi.api(fansiteId + '/profile'))
 		.end(function (err, res) {
-			if (err) {
-				console.error(err);
+			if (err || !res.ok) {
+				console.error(err || 'Failed loadMe, trying again...');
+				setTimeout(function() {
+					loadMe(fansiteId);
+				}, 100);
 				return;
 			}
 
@@ -143,13 +149,21 @@ var loadDomain = function() {
 	request
 		.get(MobApi.api('domain/' + location.hostname))
 		.end(function (err, res) {
-			if (err) {
-				console.error(err);
+			if (err || !res.ok) {
+				console.error(err || 'Failed loadDomain, trying again...');
+				setTimeout(function() {
+					loadDomain();
+				}, 100);
 				return;
 			}
 
 			var obj = JSON.parse(res.text);
-			loadMe(obj.ref);
+
+			if (obj) {
+				loadMe(obj.ref);
+			} else {
+				// TODO: página de erro 404
+			}
 		});
 };
 
