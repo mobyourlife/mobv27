@@ -29702,7 +29702,7 @@ angular.module('MobYourLife')
 			scope.title = scope.fansiteName;
 			scope.showBanner = scope.title && scope.title.length !== 0;
 			scope.margin = 0;
-			scope.height = (scope.cover && scope.cover.height) || 250;
+			scope.height = 250;
 
 			/* show cover background */
 			if (scope.cover && scope.cover.path && scope.cover.height) {
@@ -29712,7 +29712,16 @@ angular.module('MobYourLife')
 					path = '/uploads/' + path;
 				}
 
-				scope.background = 'background-image: url(' + path + ');';
+				var img = new Image();
+				img.onload = function() {
+					/* defer scope apply to the next digest cycle to avoid a digest in progress */
+					$timeout(function() {
+						scope.background = 'background-image: url(' + path + ');';
+						scope.height = (scope.cover && scope.cover.height) || 250;
+						scope.$apply();
+					});
+				}
+				img.src = path;
 			}
 
 			/* in case banner is not shown, logo should be kept small to fit the navbar */
