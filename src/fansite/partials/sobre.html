@@ -15,6 +15,6 @@
 <hr/>
 
 <div class="container">
-	<p ng-if="fansite.facebook.about" ng-bind="fansite.facebook.about | lineBreaks"></p>
-	<p ng-if="fansite.facebook.description" ng-bind="fansite.facebook.description | lineBreaks"></p>
+	<p ng-if="fansite.facebook.about" ng-bind-html="fansite.facebook.about | lineBreaks"></p>
+	<p ng-if="fansite.facebook.description" ng-bind-html="fansite.facebook.description | lineBreaks"></p>
 </div>
