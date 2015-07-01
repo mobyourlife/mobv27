@@ -1,6 +1,6 @@
 angular.module('MobYourLife')
 
-.controller('VideosCtrl', function ($rootScope, $scope, VideosApi) {
+.controller('VideosCtrl', function ($rootScope, $scope, $timeout, VideosApi) {
 	var busy = false;
 	$scope.videos = [];
 
@@ -30,6 +30,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreVideos();
+				});
 			})
 			.finally(function () {
 				busy = false;

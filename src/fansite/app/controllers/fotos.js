@@ -1,6 +1,6 @@
 angular.module('MobYourLife')
 
-.controller('FotosCtrl', function ($rootScope, $scope, FotosApi) {
+.controller('FotosCtrl', function ($rootScope, $scope, $timeout, FotosApi) {
 	var busy = false;
 	$scope.fotos = [];
 
@@ -40,6 +40,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreFotos();
+				});
 			})
 			.finally(function () {
 				busy = false;

@@ -1,6 +1,6 @@
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function($rootScope, $scope, FeedsApi) {
+.controller('HomeCtrl', function($rootScope, $scope, $timeout, FeedsApi) {
 	var busy = false;
 	$scope.feeds = [];
 
@@ -30,6 +30,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreFeeds();
+				});
 			})
 			.finally(function () {
 				busy = false;

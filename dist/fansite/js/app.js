@@ -29323,7 +29323,7 @@ angular.module('MobYourLife')
 },{}],6:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('FotosCtrl', function ($rootScope, $scope, FotosApi) {
+.controller('FotosCtrl', function ($rootScope, $scope, $timeout, FotosApi) {
 	var busy = false;
 	$scope.fotos = [];
 
@@ -29363,6 +29363,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreFotos();
+				});
 			})
 			.finally(function () {
 				busy = false;
@@ -29388,7 +29391,7 @@ angular.module('MobYourLife')
 },{}],7:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('HomeCtrl', function($rootScope, $scope, FeedsApi) {
+.controller('HomeCtrl', function($rootScope, $scope, $timeout, FeedsApi) {
 	var busy = false;
 	$scope.feeds = [];
 
@@ -29418,6 +29421,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreFeeds();
+				});
 			})
 			.finally(function () {
 				busy = false;
@@ -29504,18 +29510,28 @@ angular.module('MobYourLife')
 },{}],9:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('TextPageCtrl', function ($rootScope, $scope, $routeParams, $sce, TextPagesApi) {
-	TextPagesApi.getPageBody($routeParams.page)
-		.then(function (data) {
-			$rootScope.$broadcast('setPageTitle', data.title);
-			$rootScope.activeTextPage = data.path;
-			$scope.pageBody = $sce.trustAsHtml(data.body);
-		});
+.controller('TextPageCtrl', function ($rootScope, $scope, $routeParams, $sce, $timeout, TextPagesApi) {
+	var getPageBody = function() {
+		TextPagesApi.getPageBody($routeParams.page)
+			.then(function (data) {
+				$rootScope.$broadcast('setPageTitle', data.title);
+				$rootScope.activeTextPage = data.path;
+				$scope.pageBody = $sce.trustAsHtml(data.body);
+			})
+			.catch(function (err) {
+				console.log(err);
+				$timeout(function() {
+					getPageBody();
+				});
+			});
+	}
+
+	getPageBody();
 });
 },{}],10:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('VideosCtrl', function ($rootScope, $scope, VideosApi) {
+.controller('VideosCtrl', function ($rootScope, $scope, $timeout, VideosApi) {
 	var busy = false;
 	$scope.videos = [];
 
@@ -29545,6 +29561,9 @@ angular.module('MobYourLife')
 			})
 			.catch(function (err) {
 				console.error(err);
+				$timeout(function() {
+					getMoreVideos();
+				});
 			})
 			.finally(function () {
 				busy = false;
