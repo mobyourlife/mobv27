@@ -22,12 +22,26 @@
 				<li ng-class="{ 'active': $root.controller === 'ContatoCtrl' }"><a href="/#/contato">Contato</a></li>
 			</ul>
 			<ul ng-if="$root.user && $root.user.auth === true" class="nav navbar-nav pull-right">
-				<li>
+				<li class="dropdown">
 					<a href="/#/usuario">
 						<img ng-src="{{ $root.user.picture }}" class="user-picture" alt="Foto de perfil" />
 						<span ng-bind="$root.user.name"></span>
 						<i class="mi-down-dir"></i>
 					</a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-header">Gerenciar</li>
+						<li><a href="/#/admin/gerenciar-albuns">Álbuns</a></li>
+						<li><a href="/#/admin/paginas-estaticas">Páginas estáticas</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Personalizar</li>
+						<li><a href="/#/admin/paginas-estaticas">Aparência</a></li>
+						<li><a href="/#/admin/alterar-logotipo">Logotipo</a></li>
+						<li><a href="/#/admin/alterar-titulos">Títulos das páginas</a></li>
+						<li class="divider"></li>
+						<li class="dropdown-header">Sua conta</li>
+						<li><a href="/#/admin/meus-sites">Meus sites</a></li>
+						<li><a href="/#/admin/sair">Sair</a></li>
+					</ul>
 				</li>
 			</ul>
 		</div>

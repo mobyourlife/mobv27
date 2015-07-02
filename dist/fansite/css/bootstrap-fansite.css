@@ -166,6 +166,12 @@ footer {
   width: 1.28571429em;
   text-align: center; }
 
+.dropdown:hover .dropdown-menu {
+  display: block; }
+
+.dropdown-header {
+  text-transform: uppercase; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;
