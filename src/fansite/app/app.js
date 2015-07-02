@@ -43,7 +43,7 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $window, CarouselApi, TextPagesApi, AlbumPagesApi) {
+.run(function ($rootScope, $timeout, $window, CarouselApi, TextPagesApi, AlbumPagesApi, LoginApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
 	});
@@ -64,6 +64,28 @@ angular.module('MobYourLife', [
 	$rootScope.displayName = ($rootScope.fansite.custom && $rootScope.fansite.custom.display_name) || $rootScope.fansite.facebook.name;
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
 
+	/* get login info */
+	var loadLoginInfo = function () {
+		LoginApi.getLoginInfo()
+			.then(function (data) {
+				$rootScope.user = data;
+				console.log(data);
+			})
+			.catch(function (err) {
+				console.error(err);
+				/* user is not logged in */
+				if (err.headers && err.headers.status === 401) {
+					return;
+				}
+
+				/* connection timeout, try again */
+				$timeout(function() {
+					//loadLoginInfo();	
+				}, 1000);
+			});
+	}
+	loadLoginInfo();
+
 	/* load text pages */
 	var loadTextPages = function () {
 		TextPagesApi.getTextPages()
@@ -71,7 +93,10 @@ angular.module('MobYourLife', [
 				$rootScope.textPages = data;
 			})
 			.catch(function (err) {
-				loadTextPages();
+				console.error(err);
+				$timeout(function() {
+					loadTextPages();	
+				}, 1000);
 			});
 	}
 	loadTextPages();
@@ -83,7 +108,10 @@ angular.module('MobYourLife', [
 				$rootScope.albumPages = data;
 			})
 			.catch(function (err) {
-				loadAlbumPages();
+				console.error(err);
+				$timeout(function() {
+					loadAlbumPages();	
+				}, 1000);
 			});
 	}
 	loadAlbumPages();
@@ -152,6 +180,7 @@ require('./data/albumpages');
 require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');
+require('./data/login');
 require('./data/outmail');
 require('./data/profile');
 require('./data/textpages');

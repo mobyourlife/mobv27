@@ -32,7 +32,7 @@ angular.module('MobYourLife')
 				console.error(err);
 				$timeout(function() {
 					getMoreFeeds();
-				});
+				}, 500);
 			})
 			.finally(function () {
 				busy = false;

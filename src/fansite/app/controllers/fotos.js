@@ -61,7 +61,7 @@ angular.module('MobYourLife')
 				console.error(err);
 				$timeout(function() {
 					getMoreFotos();
-				});
+				}, 500);
 			})
 			.finally(function () {
 				busy = false;

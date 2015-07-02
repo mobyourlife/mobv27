@@ -12,7 +12,7 @@ angular.module('MobYourLife')
 				console.log(err);
 				$timeout(function() {
 					getPageBody();
-				});
+				}, 500);
 			});
 	}
 

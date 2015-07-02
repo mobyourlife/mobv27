@@ -21,6 +21,15 @@
 				<li ng-if="$root.fansite.video_count" ng-class="{ 'active': $root.controller === 'VideosCtrl' }"><a href="/#/videos">Vídeos</a></li>
 				<li ng-class="{ 'active': $root.controller === 'ContatoCtrl' }"><a href="/#/contato">Contato</a></li>
 			</ul>
+			<ul ng-if="$root.user && $root.user.auth === true" class="nav navbar-nav pull-right">
+				<li>
+					<a href="/#/usuario">
+						<img ng-src="{{ $root.user.picture }}" class="user-picture" alt="Foto de perfil" />
+						<span ng-bind="$root.user.name"></span>
+						<i class="mi-down-dir"></i>
+					</a>
+				</li>
+			</ul>
 		</div>
 	</div>
 </nav>
