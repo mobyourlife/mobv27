@@ -216,6 +216,7 @@ angular.module('MobYourLife', [
 });
 
 require('./data/albumpages');
+require('./data/albums');
 require('./data/carousel');
 require('./data/feeds');
 require('./data/fotos');

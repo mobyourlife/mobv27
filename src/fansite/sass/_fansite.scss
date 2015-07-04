@@ -200,3 +200,11 @@ footer {
 .dropdown-header {
 	text-transform: uppercase;
 }
+
+.show-on-hover {
+	display: none;
+}
+
+.hoverable:hover .show-on-hover {
+	display: inline-block;
+}

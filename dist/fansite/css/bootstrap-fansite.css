@@ -176,6 +176,12 @@ footer {
 .dropdown-header {
   text-transform: uppercase; }
 
+.show-on-hover {
+  display: none; }
+
+.hoverable:hover .show-on-hover {
+  display: inline-block; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;

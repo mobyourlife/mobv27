@@ -43,6 +43,7 @@ var carousel = require('./controllers/carousel');
 var textpages = require('./controllers/textpages');
 var outmail = require('./controllers/outmail');
 var albumpages = require('./controllers/albumpages');
+var albums = require('./controllers/albums');
 
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
@@ -54,6 +55,7 @@ router.get('/api/:fansite/carousel', carousel.getCarousel);
 router.get('/api/:fansite/textpages', textpages.getTextPages);
 router.get('/api/:fansite/textpages/:page', textpages.getPageBody);
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
+router.get('/api/:fansite/albums', albums.getAlbums);
 
 // POST METHODS --------------------------------------
 router.post('/api/:fansite/outmail', outmail.postNewMail);
