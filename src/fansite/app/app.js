@@ -10,17 +10,29 @@ angular.module('MobYourLife', [
 
 .config(function ($routeProvider) {
 
-	var isLoggedIn = function ($rootScope, $location) {
+	var isLoggedIn = function ($rootScope, $location, LoginApi) {
 		var user = $rootScope.user;
 		if (user && user.auth) {
 			return true;
 		} else {
-			$location.path('/');
+			LoginApi.getLoginInfo()
+				.then(function (data) {
+					if (data && data.auth) {
+						return true;
+					} else {
+						$location.path('/');
+						return false;
+					}
+				})
+				.catch(function (err) {
+					$location.path('/');
+					return false;
+				});
 		}
 	}
 
 	var requiresLogin = {
-		isLoggedIn: ['$rootScope', '$location', isLoggedIn]
+		isLoggedIn: ['$rootScope', '$location', 'LoginApi', isLoggedIn]
 	};
 
 	$routeProvider
