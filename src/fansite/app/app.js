@@ -9,6 +9,20 @@ angular.module('MobYourLife', [
 ])
 
 .config(function ($routeProvider) {
+
+	var isLoggedIn = function ($rootScope, $location) {
+		var user = $rootScope.user;
+		if (user && user.auth) {
+			return true;
+		} else {
+			$location.path('/');
+		}
+	}
+
+	var requiresLogin = {
+		isLoggedIn: ['$rootScope', '$location', isLoggedIn]
+	};
+
 	$routeProvider
 		.when('/inicio', {
 			templateUrl: '/partials/inicio.html',
@@ -38,6 +52,11 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/contato.html',
 			controller: 'ContatoCtrl'
 		})
+		.when('/admin/gerenciar/albuns', {
+			templateUrl: '/partials/admin/gerenciar/albuns.html',
+			controller: 'GerenciarAlbunsCtrl',
+			resolve: requiresLogin
+		})
 		.otherwise({
 			redirectTo: '/inicio'
 		});
@@ -65,11 +84,12 @@ angular.module('MobYourLife', [
 	$rootScope.aboutPage = ($rootScope.fansite.custom && $rootScope.fansite.custom.about_page);
 
 	/* get login info */
-	var loadLoginInfo = function () {
+	var checkingLogin = false;
+	var loadLoginInfo = function (callback) {
+		checkingLogin = true;
 		LoginApi.getLoginInfo()
 			.then(function (data) {
 				$rootScope.user = data;
-				console.log(data);
 			})
 			.catch(function (err) {
 				console.error(err);
@@ -82,6 +102,13 @@ angular.module('MobYourLife', [
 				$timeout(function() {
 					//loadLoginInfo();	
 				}, 1000);
+			})
+			.finally(function () {
+				checkingLogin = false;
+
+				if (callback) {
+					callback();
+				}
 			});
 	}
 	loadLoginInfo();
@@ -192,6 +219,7 @@ require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
 require('./controllers/textpage');
+require('./controllers/admin/gerenciar/albuns');
 
 require('./directives/mob-banner');
 require('./directives/mob-feed');

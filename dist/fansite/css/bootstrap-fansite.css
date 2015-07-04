@@ -57,6 +57,10 @@ img.user-picture {
   color: white;
   text-shadow: 3px 3px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
 
+.carousel-caption > .jumbo-title {
+  font-size: 4em;
+  margin-bottom: 1em; }
+
 .jumbo-pad {
   height: 2em; }
 
