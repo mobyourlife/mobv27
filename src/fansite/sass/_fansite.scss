@@ -208,3 +208,7 @@ footer {
 .hoverable:hover .show-on-hover {
 	display: inline-block;
 }
+
+.list-group.clickable > .list-group-item {
+	cursor: pointer;
+}

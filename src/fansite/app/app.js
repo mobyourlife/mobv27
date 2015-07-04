@@ -69,6 +69,11 @@ angular.module('MobYourLife', [
 			controller: 'GerenciarAlbunsCtrl',
 			resolve: requiresLogin
 		})
+		.when('/admin/gerenciar/albuns/:albumid', {
+			templateUrl: '/partials/admin/gerenciar/albuns/editar.html',
+			controller: 'GerenciarAlbunsEditarCtrl',
+			resolve: requiresLogin
+		})
 		.otherwise({
 			redirectTo: '/inicio'
 		});

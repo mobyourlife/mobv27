@@ -1,0 +1,20 @@
+<h3 ng-bind="album.name"></h3>
+<div class="list-group clickable">
+	<a class="list-group-item" ng-class="{ 'active': !album.special }" ng-click="setSpecial(null)">
+		<i class="mi-doc"></i>
+		<span>Padrão</span>
+	</a>
+	<a class="list-group-item" ng-class="{ 'active': album.special === 'banner' }" ng-click="setSpecial('banner')">
+		<i class="mi-th-large"></i>
+		<span>Banner rotativo</span>
+	</a>
+	<a class="list-group-item" ng-class="{ 'active': album.special === 'page' }" ng-click="setSpecial('page')">
+		<i class="mi-file-image"></i>
+		<span>Página exclusiva</span>
+	</a>
+	<a class="list-group-item" ng-class="{ 'active': album.special === 'hide' }" ng-click="setSpecial('hide')">
+		<i class="mi-trash-empty"></i>
+		<span>Descartar álbum</span>
+	</a>
+</div>
+<a ng-click="cancelar()" class="btn btn-info pull-right">Cancelar</a>

@@ -29321,7 +29321,7 @@ angular.module('MobYourLife')
 				return 'mi-file-image';
 
 			case 'hide':
-				return 'mi-trash';
+				return 'mi-trash-empty';
 
 			default:
 				return 'mi-doc';
@@ -29337,11 +29337,40 @@ angular.module('MobYourLife')
 				return 'Página exclusiva';
 
 			case 'hide':
-				return 'Descartar';
+				return 'Descartar álbum';
 
 			default:
 				return 'Padrão';
 		}
+	}
+})
+
+.controller('GerenciarAlbunsEditarCtrl', function ($rootScope, $scope, $routeParams, $location, AlbumsApi) {
+	$rootScope.$broadcast('setPageTitle', 'Gerenciar Álbuns');
+
+	AlbumsApi.getAlbum($routeParams.albumid)
+		.then(function (data) {
+			$scope.album = data;
+		})
+		.catch(function (err) {
+			console.log(err);
+			$location.path('/admin/gerenciar/albuns');
+		});
+
+	$scope.setSpecial = function (type) {
+		$scope.album.special = type;
+
+		AlbumsApi.setAlbumType($scope.album._id, $scope.album.special)
+			.then(function (data) {
+				$scope.cancelar();
+			})
+			.catch(function (err) {
+				alert('Falha ao tentar salvar o álbum!\nPor favor tente novamente.');
+			});
+	}
+
+	$scope.cancelar = function () {
+		$location.path('/admin/gerenciar/albuns');
 	}
 });
 },{}],6:[function(require,module,exports){
@@ -29665,6 +29694,25 @@ angular.module('MobYourLife.Data')
 .service('AlbumsApi', function (BaseApi) {
 	this.getAlbums = function (args) {
 		var promise = BaseApi.getApi('albums', args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+
+	this.getAlbum = function (albumid, args) {
+		var uri = 'albums/' + albumid;
+		var promise = BaseApi.getApi(uri, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+
+	this.setAlbumType = function (album_id, type) {
+		var uri = 'albums/' + album_id;
+		var args = { type: type };
+		var promise = BaseApi.postApi(uri, args)
 			.then(function (response) {
 				return response.data;
 			});
@@ -30093,6 +30141,11 @@ angular.module('MobYourLife', [
 		.when('/admin/gerenciar/albuns', {
 			templateUrl: '/partials/admin/gerenciar/albuns.html',
 			controller: 'GerenciarAlbunsCtrl',
+			resolve: requiresLogin
+		})
+		.when('/admin/gerenciar/albuns/:albumid', {
+			templateUrl: '/partials/admin/gerenciar/albuns/editar.html',
+			controller: 'GerenciarAlbunsEditarCtrl',
 			resolve: requiresLogin
 		})
 		.otherwise({

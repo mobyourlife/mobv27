@@ -8,4 +8,23 @@ angular.module('MobYourLife.Data')
 			});
 		return promise;
 	}
+
+	this.getAlbum = function (albumid, args) {
+		var uri = 'albums/' + albumid;
+		var promise = BaseApi.getApi(uri, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+
+	this.setAlbumType = function (album_id, type) {
+		var uri = 'albums/' + album_id;
+		var args = { type: type };
+		var promise = BaseApi.postApi(uri, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
 });

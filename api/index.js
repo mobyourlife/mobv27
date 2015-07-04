@@ -56,6 +56,8 @@ router.get('/api/:fansite/textpages', textpages.getTextPages);
 router.get('/api/:fansite/textpages/:page', textpages.getPageBody);
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
 router.get('/api/:fansite/albums', albums.getAlbums);
+router.get('/api/:fansite/albums/:albumid', albums.getAlbum);
+router.post('/api/:fansite/albums/:albumid', albums.setAlbumType);
 
 // POST METHODS --------------------------------------
 router.post('/api/:fansite/outmail', outmail.postNewMail);

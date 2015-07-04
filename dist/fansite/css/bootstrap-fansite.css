@@ -182,6 +182,9 @@ footer {
 .hoverable:hover .show-on-hover {
   display: inline-block; }
 
+.list-group.clickable > .list-group-item {
+  cursor: pointer; }
+
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 html {
   font-family: sans-serif;

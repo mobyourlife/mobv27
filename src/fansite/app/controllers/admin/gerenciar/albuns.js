@@ -24,7 +24,7 @@ angular.module('MobYourLife')
 				return 'mi-file-image';
 
 			case 'hide':
-				return 'mi-trash';
+				return 'mi-trash-empty';
 
 			default:
 				return 'mi-doc';
@@ -40,10 +40,39 @@ angular.module('MobYourLife')
 				return 'Página exclusiva';
 
 			case 'hide':
-				return 'Descartar';
+				return 'Descartar álbum';
 
 			default:
 				return 'Padrão';
 		}
+	}
+})
+
+.controller('GerenciarAlbunsEditarCtrl', function ($rootScope, $scope, $routeParams, $location, AlbumsApi) {
+	$rootScope.$broadcast('setPageTitle', 'Gerenciar Álbuns');
+
+	AlbumsApi.getAlbum($routeParams.albumid)
+		.then(function (data) {
+			$scope.album = data;
+		})
+		.catch(function (err) {
+			console.log(err);
+			$location.path('/admin/gerenciar/albuns');
+		});
+
+	$scope.setSpecial = function (type) {
+		$scope.album.special = type;
+
+		AlbumsApi.setAlbumType($scope.album._id, $scope.album.special)
+			.then(function (data) {
+				$scope.cancelar();
+			})
+			.catch(function (err) {
+				alert('Falha ao tentar salvar o álbum!\nPor favor tente novamente.');
+			});
+	}
+
+	$scope.cancelar = function () {
+		$location.path('/admin/gerenciar/albuns');
 	}
 });
