@@ -29746,17 +29746,18 @@ angular.module('MobYourLife.Data')
 },{}],21:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.directive('mobBanner', function ($rootScope, $timeout) {
+.directive('mobBanner', function ($rootScope, $window, $timeout) {
 	return {
 		scope: {
 			'fansiteName': '=',
 			'pageTitle': '=',
-			'cover': '='
+			'cover': '=',
+			'logo': '=',
 		},
 		link: function (scope, element, attr) {
 			scope.title = scope.fansiteName;
 			scope.showBanner = scope.title && scope.title.length !== 0;
-			scope.margin = 0;
+			scope.margin = (scope.logo && scope.logo.width) || 0;
 			scope.height = 250;
 
 			/* show cover background */
@@ -29784,9 +29785,26 @@ angular.module('MobYourLife')
 				$rootScope.$broadcast('disableBigLogo');
 			}
 
+			/* bind window's scroll event */
+			angular.element($window).bind('scroll', function () {
+				var scrolling = (this.pageYOffset >= 100);
+				scope.margin = (!scrolling && scope.logo && scope.logo.width) || 0;
+
+				/* defer scope apply to the next digest cycle to avoid a digest in progress */
+				$timeout(function() {
+					scope.$apply();
+				});
+			});
+
 			/* listen to logo resize events to add left padding to banner's title */
-			$rootScope.$on('resizeLogo', function (ev, data) {
+			$rootScope.$on('resizeJumbo', function (ev, data) {
+				console.log('resizing jumbo to width = ' + data.width + 'px');
 				scope.margin = (!data || data.scrolling) ? 0 : data.width;
+
+				/* defer scope apply to the next digest cycle to avoid a digest in progress */
+				$timeout(function() {
+					scope.$apply();
+				});
 			});
 
 			/* listen to page title events to update banner's title */
