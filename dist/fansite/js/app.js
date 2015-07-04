@@ -29345,7 +29345,7 @@ angular.module('MobYourLife')
 	}
 })
 
-.controller('GerenciarAlbunsEditarCtrl', function ($rootScope, $scope, $routeParams, $location, AlbumsApi) {
+.controller('GerenciarAlbunsEditarCtrl', function ($rootScope, $scope, $routeParams, $location, $timeout, AlbumsApi) {
 	$rootScope.$broadcast('setPageTitle', 'Gerenciar Álbuns');
 
 	AlbumsApi.getAlbum($routeParams.albumid)
@@ -29362,6 +29362,12 @@ angular.module('MobYourLife')
 
 		AlbumsApi.setAlbumType($scope.album._id, $scope.album.special)
 			.then(function (data) {
+				if ($scope.album.special === 'banner') {
+					$timeout(function() {
+						$rootScope.$broadcast('refreshCarousel');
+					});
+				}
+
 				$scope.cancelar();
 			})
 			.catch(function (err) {
@@ -30139,7 +30145,7 @@ angular.module('MobYourLife', [
 			controller: 'ContatoCtrl'
 		})
 		.when('/admin/gerenciar/albuns', {
-			templateUrl: '/partials/admin/gerenciar/albuns.html',
+			templateUrl: '/partials/admin/gerenciar/albuns/index.html',
 			controller: 'GerenciarAlbunsCtrl',
 			resolve: requiresLogin
 		})
@@ -30166,8 +30172,14 @@ angular.module('MobYourLife', [
 	$rootScope.fansite = window.thisFansite;
 
 	/* load carousel */
-	CarouselApi.getCarousel().then(function (data) {
-		$rootScope.$broadcast('loadCarousel', data);
+	$rootScope.$on('refreshCarousel', function () {
+		CarouselApi.getCarousel().then(function (data) {
+			$rootScope.$broadcast('loadCarousel', data);
+		});
+	});
+
+	$timeout(function() {
+		$rootScope.$broadcast('refreshCarousel');
 	});
 
 	/* set fansite display name */

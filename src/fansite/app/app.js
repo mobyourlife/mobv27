@@ -65,7 +65,7 @@ angular.module('MobYourLife', [
 			controller: 'ContatoCtrl'
 		})
 		.when('/admin/gerenciar/albuns', {
-			templateUrl: '/partials/admin/gerenciar/albuns.html',
+			templateUrl: '/partials/admin/gerenciar/albuns/index.html',
 			controller: 'GerenciarAlbunsCtrl',
 			resolve: requiresLogin
 		})
@@ -92,8 +92,14 @@ angular.module('MobYourLife', [
 	$rootScope.fansite = window.thisFansite;
 
 	/* load carousel */
-	CarouselApi.getCarousel().then(function (data) {
-		$rootScope.$broadcast('loadCarousel', data);
+	$rootScope.$on('refreshCarousel', function () {
+		CarouselApi.getCarousel().then(function (data) {
+			$rootScope.$broadcast('loadCarousel', data);
+		});
+	});
+
+	$timeout(function() {
+		$rootScope.$broadcast('refreshCarousel');
 	});
 
 	/* set fansite display name */
