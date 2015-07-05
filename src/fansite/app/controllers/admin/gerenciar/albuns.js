@@ -24,7 +24,7 @@ angular.module('MobYourLife')
 				return 'mi-file-image';
 
 			case 'hide':
-				return 'mi-trash-empty';
+				return 'mi-trash';
 
 			default:
 				return 'mi-doc';

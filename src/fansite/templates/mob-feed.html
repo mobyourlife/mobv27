@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="mi-thumbs-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
-					<a href="" ng-click="$root.fbShare(data.link)" class="btn btn-default"><i class="mi-forward fa-fw"></i></a>
+					<a href="" ng-click="$root.fbShare(data.link)" class="btn btn-default"><i class="mi-share fa-fw"></i></a>
 				</div>
 			</div>
 			<div ng-class="{ 'col-md-7': hasMedia, 'col-md-12': !hasMedia }">
@@ -31,7 +31,7 @@
 				<p ng-if="!data.message" ng-bind="data.story"></p>
 				<div ng-if="!hasMedia">
 					<a ng-href="{{ data.link }}" target="_blank" class="btn btn-default"><i class="mi-thumbs-up fa-fw"></i> <span ng-bind="data.likes_count"></span></a>
-					<a href="" ng-click="$root.fbShare(data.link)" class="btn btn-default"><i class="mi-forward fa-fw"></i></a>
+					<a href="" ng-click="$root.fbShare(data.link)" class="btn btn-default"><i class="mi-share fa-fw"></i></a>
 				</div>
 			</div>
 		</div>

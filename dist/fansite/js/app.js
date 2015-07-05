@@ -29321,7 +29321,7 @@ angular.module('MobYourLife')
 				return 'mi-file-image';
 
 			case 'hide':
-				return 'mi-trash-empty';
+				return 'mi-trash';
 
 			default:
 				return 'mi-doc';
@@ -29605,7 +29605,7 @@ angular.module('MobYourLife')
 	/* fanpage ratings */
 	if ($rootScope.fansite.ratings && $rootScope.fansite.ratings_average) {
 		$scope.hotinfo.push({
-			icon: 'star-empty',
+			icon: 'star',
 			label: 'Avaliação geral',
 			value: $rootScope.fansite.ratings_average.toFixed(1).replace('.', ',')
 		});
