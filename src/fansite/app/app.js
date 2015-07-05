@@ -74,6 +74,16 @@ angular.module('MobYourLife', [
 			controller: 'GerenciarAlbunsEditarCtrl',
 			resolve: requiresLogin
 		})
+		.when('/admin/gerenciar/paginas-estaticas', {
+			templateUrl: '/partials/admin/gerenciar/paginas-estaticas/index.html',
+			controller: 'PaginasEstaticasCtrl',
+			resolve: requiresLogin
+		})
+		.when('/admin/gerenciar/paginas-estaticas/:pageid', {
+			templateUrl: '/partials/admin/gerenciar/paginas-estaticas/editar.html',
+			controller: 'PaginasEstaticasEditarCtrl',
+			resolve: requiresLogin
+		})
 		.otherwise({
 			redirectTo: '/inicio'
 		});
@@ -244,6 +254,7 @@ require('./controllers/videos');
 require('./controllers/contato');
 require('./controllers/textpage');
 require('./controllers/admin/gerenciar/albuns');
+require('./controllers/admin/gerenciar/paginas-estaticas');
 
 require('./directives/mob-banner');
 require('./directives/mob-feed');

@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'fontmob';
-  src: url('../font/fontmob.eot?11486444');
-  src: url('../font/fontmob.eot?11486444#iefix') format('embedded-opentype'),
-       url('../font/fontmob.woff?11486444') format('woff'),
-       url('../font/fontmob.ttf?11486444') format('truetype'),
-       url('../font/fontmob.svg?11486444#fontmob') format('svg');
+  src: url('../font/fontmob.eot?93111081');
+  src: url('../font/fontmob.eot?93111081#iefix') format('embedded-opentype'),
+       url('../font/fontmob.woff?93111081') format('woff'),
+       url('../font/fontmob.ttf?93111081') format('truetype'),
+       url('../font/fontmob.svg?93111081#fontmob') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -14,7 +14,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontmob';
-    src: url('../font/fontmob.svg?11486444#fontmob') format('svg');
+    src: url('../font/fontmob.svg?93111081#fontmob') format('svg');
   }
 }
 */
@@ -71,6 +71,9 @@
 .mi-doc:before { content: '\e80e'; } /* '' */
 .mi-trash-empty:before { content: '\e80f'; } /* '' */
 .mi-file-image:before { content: '\e810'; } /* '' */
+.mi-plus:before { content: '\e811'; } /* '' */
+.mi-floppy:before { content: '\e812'; } /* '' */
+.mi-home:before { content: '\e813'; } /* '' */
 /*
    Animation example, for spinners
 */
