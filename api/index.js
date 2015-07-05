@@ -47,13 +47,18 @@ var albums = require('./controllers/albums');
 
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
+
 router.get('/api/:fansite/profile', profile.getProfile);
 router.get('/api/:fansite/feeds', feeds.getFeeds);
 router.get('/api/:fansite/fotos', fotos.getFotos);
 router.get('/api/:fansite/videos', videos.getVideos);
 router.get('/api/:fansite/carousel', carousel.getCarousel);
+
 router.get('/api/:fansite/textpages', textpages.getTextPages);
 router.get('/api/:fansite/textpages/:page', textpages.getPageBody);
+router.post('/api/:fansite/textpages', textpages.newTextPage);
+router.post('/api/:fansite/textpages/:page', textpages.editTextPage);
+
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
 router.get('/api/:fansite/albums', albums.getAlbums);
 router.get('/api/:fansite/albums/:albumid', albums.getAlbum);

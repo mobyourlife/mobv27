@@ -161,6 +161,10 @@ angular.module('MobYourLife', [
 	}
 	loadTextPages();
 
+	$rootScope.$on('reloadTextPages', function () {
+		loadTextPages();
+	});
+
 	/* load album pages */
 	var loadAlbumPages = function () {
 		AlbumPagesApi.getAlbumPages()
