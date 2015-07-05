@@ -29362,11 +29362,9 @@ angular.module('MobYourLife')
 
 		AlbumsApi.setAlbumType($scope.album._id, $scope.album.special)
 			.then(function (data) {
-				if ($scope.album.special === 'banner') {
-					$timeout(function() {
-						$rootScope.$broadcast('refreshCarousel');
-					});
-				}
+				$timeout(function() {
+					$rootScope.$broadcast('refreshCarousel');
+				});
 
 				$scope.cancelar();
 			})
