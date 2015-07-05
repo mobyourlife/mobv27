@@ -29380,16 +29380,45 @@ angular.module('MobYourLife')
 },{}],6:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('PaginasEstaticasCtrl', function ($rootScope, $scope) {
+.controller('PaginasEstaticasCtrl', function ($rootScope, $scope, $location, $timeout) {
 	$rootScope.$broadcast('setPageTitle', 'Páginas estáticas');
+
+	$scope.ready = false;
+
+	window.loadEditor(function() {
+		$scope.ready = true;
+	});
+
+	var waitEditor = function(callback) {
+		if ($scope.ready) {
+			callback();
+		} else {
+			$timeout(function() {
+				waitEditor(callback);
+			}, 50);
+		}
+	}
+
+	$scope.novaPagina = function () {
+		$scope.busy = true;
+		waitEditor(function() {
+			$location.path('/admin/gerenciar/paginas-estaticas/nova-pagina');
+		});
+	}
 })
 
-.controller('PaginasEstaticasEditarCtrl', function ($rootScope, $scope, $routeParams, $location) {
+.controller('PaginasEstaticasEditarCtrl', function ($rootScope, $scope, $routeParams, $location, $timeout) {
 	if ($routeParams.pageid.toLowerCase() === 'nova-pagina') {
 		$rootScope.$broadcast('setPageTitle', 'Criar nova página');
 	} else {
 		$rootScope.$broadcast('setPageTitle', 'Editar página');
 	}
+
+	window.loadEditor(function() {
+		$timeout(function() {
+			jQuery('#editor').wysiwyg();
+		});
+	});
 
 	$scope.cancelar = function () {
 		$location.path('/admin/gerenciar/paginas-estaticas');
@@ -30094,6 +30123,74 @@ angular.module('MobYourLife')
     }
 });
 },{}],28:[function(require,module,exports){
+var addListener = function(element, event, fn) {
+	// Use addEventListener if available
+	if (element.addEventListener) {
+		element.addEventListener(event, fn, false);
+
+		// Otherwise use attachEvent, set this and event
+	} else if (element.attachEvent) {
+		element.attachEvent('on' + event, (function(el) {
+			return function() {
+				fn.call(el, window.event);
+			};
+		}(element)));
+
+		// Break closure and primary circular reference to element
+		element = null;
+	}
+}
+
+window.appendScript = function (id, src) {
+	var js;
+	if (document.getElementById(id)) {
+		return;
+	}
+	js = document.createElement('script');
+	js.id = id;
+	js.src = src;
+	document.body.appendChild(js);
+}
+
+var preloadScript = function(id, src, callback) {
+	var js;
+	if (document.getElementById(id)) {
+		if (callback) {
+			callback();
+		}
+		return;
+	}
+	js = document.createElement('script');
+	js.id = id;
+	js.src = src;
+
+	if (callback) {
+		addListener(js, 'load', function () {
+			callback();
+		});
+	}
+
+	addListener(js, 'error', function () {
+		preloadScript(id, src, callback);
+	});
+
+	document.body.appendChild(js);
+}
+
+window.loadEditor = function (callback) {
+	preloadScript('jquery', '//code.jquery.com/jquery-1.11.3.min.js', function () {
+		preloadScript('jquery-hotkeys', '/js/jquery.hotkeys.js', function () {
+			preloadScript('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', function () {
+				preloadScript('bootstrap-wysiwyg', '/js/bootstrap-wysiwyg.js', function () {
+					if (callback) {
+						callback();
+					}
+				});
+			});
+		});
+	});
+}
+},{}],29:[function(require,module,exports){
 var angular = require('angular');
 var ngRoute = require('angular-route');
 
@@ -30360,7 +30457,9 @@ require('./directives/spinner-on-load');
 require('./filters/date');
 require('./filters/linebreaks');
 require('./filters/video');
-},{"./controllers/admin/gerenciar/albuns":5,"./controllers/admin/gerenciar/paginas-estaticas":6,"./controllers/contato":7,"./controllers/fotos":8,"./controllers/inicio":9,"./controllers/sobre":10,"./controllers/textpage":11,"./controllers/videos":12,"./data/albumpages":13,"./data/albums":14,"./data/carousel":15,"./data/feeds":16,"./data/fotos":17,"./data/login":18,"./data/module":19,"./data/outmail":20,"./data/profile":21,"./data/textpages":22,"./data/videos":23,"./directives/mob-banner":24,"./directives/mob-feed":25,"./directives/mob-logo":26,"./directives/spinner-on-load":27,"./filters/date":29,"./filters/linebreaks":30,"./filters/video":31,"angular":4,"angular-route":2}],29:[function(require,module,exports){
+
+require('./editor');
+},{"./controllers/admin/gerenciar/albuns":5,"./controllers/admin/gerenciar/paginas-estaticas":6,"./controllers/contato":7,"./controllers/fotos":8,"./controllers/inicio":9,"./controllers/sobre":10,"./controllers/textpage":11,"./controllers/videos":12,"./data/albumpages":13,"./data/albums":14,"./data/carousel":15,"./data/feeds":16,"./data/fotos":17,"./data/login":18,"./data/module":19,"./data/outmail":20,"./data/profile":21,"./data/textpages":22,"./data/videos":23,"./directives/mob-banner":24,"./directives/mob-feed":25,"./directives/mob-logo":26,"./directives/spinner-on-load":27,"./editor":28,"./filters/date":30,"./filters/linebreaks":31,"./filters/video":32,"angular":4,"angular-route":2}],30:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('displayDate', function ($filter) {
@@ -30398,7 +30497,7 @@ angular.module('MobYourLife')
 		return _date.toUpperCase();
 	};
 });
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('lineBreaks', function ($sce) {
@@ -30411,7 +30510,7 @@ angular.module('MobYourLife')
 		return $sce.trustAsHtml(ret);
 	}
 });
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 angular.module('MobYourLife')
 
 .filter('video', function ($filter, $sce) {
@@ -30438,4 +30537,4 @@ angular.module('MobYourLife')
 		return $sce.trustAsResourceUrl(_embed);
 	};
 });
-},{}]},{},[28])
+},{}]},{},[29])

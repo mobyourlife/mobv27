@@ -15,7 +15,11 @@ module.exports = {
 		js: {
 			all: src + '/app/**/*.js',
 			app: src + '/app/app.js',
-			preload: src + '/app/preload.js'
+			preload: src + '/app/preload.js',
+			modules: [
+				bower + 'jquery.hotkeys/jquery.hotkeys.js',
+				bower + 'bootstrap-wysiwyg/bootstrap-wysiwyg.js'
+			]
 		},
 		sass: src + 'sass/*.{sass,scss}'
 	},

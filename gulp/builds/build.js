@@ -6,6 +6,7 @@ gulp.task('build', [
 	'html',
 	'images',
 	'sass',
-	'fontmob'
-	//'styles'
+	'fontmob',
+	//'styles',
+	'scripts'
 ]);
