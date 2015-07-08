@@ -26,6 +26,7 @@ mongoose.connect(config.api.database);
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Methods", "GET, POST, DELETE");
 	next();
 });
 
@@ -58,6 +59,7 @@ router.get('/api/:fansite/textpages', textpages.getTextPages);
 router.get('/api/:fansite/textpages/:path', textpages.getPageBody);
 router.post('/api/:fansite/textpages', textpages.newTextPage);
 router.post('/api/:fansite/textpages/:pageid', textpages.editTextPage);
+router.delete('/api/:fansite/textpages/:pageid', textpages.deleteTextPage);
 
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
 router.get('/api/:fansite/albums', albums.getAlbums);

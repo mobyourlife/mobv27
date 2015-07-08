@@ -72,9 +72,6 @@ module.exports = {
 		obj.path = helpers.formatAsPath(obj.title);
 		obj.body = req.body.params.body;
 
-		console.log(req.params.pageid);
-		console.log(obj);
-
 		/* check whether the given path is being used by another page */
 		TextPage.find({ ref: req.params.fansite, _id: { $ne: req.params.pageid }, path: obj.path }, function (err, records) {
 			if (err) {
@@ -95,6 +92,15 @@ module.exports = {
 
 				res.status(200).send();
 			});
+		});
+	},
+	deleteTextPage: function (req, res) {
+		TextPage.remove({ ref: req.params.fansite, _id: req.params.pageid }, function (err) {
+			if (err) {
+				throw err;
+			}
+
+			res.status(200).send();
 		});
 	}
 };

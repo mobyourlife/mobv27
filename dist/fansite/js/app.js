@@ -29410,11 +29410,10 @@ angular.module('MobYourLife')
 
 .controller('PaginasEstaticasEditarCtrl', function ($rootScope, $scope, $routeParams, $location, $timeout, TextPagesApi) {
 	$scope.caption = 'Criar nova página';
-	$scope.mode = 'new';
 
 	if ($routeParams.pageid.toLowerCase() !== 'nova-pagina') {
 		$scope.caption = 'Editar página';
-		$scope.mode = 'edit';
+		$scope.editing = true;
 
 		TextPagesApi.getPageBody($routeParams.pageid)
 			.then(function (data) {
@@ -29435,6 +29434,21 @@ angular.module('MobYourLife')
 			jQuery('#editor').wysiwyg();
 		});
 	});
+
+	$scope.excluir = function () {
+		if (!confirm('Tem certeza que deseja excluir esta página?\r\nEsta ação é irreversível!')) {
+			return;
+		}
+
+		TextPagesApi.deleteTextPage($scope.pageid)
+			.then(function () {
+				$location.path('/admin/gerenciar/paginas-estaticas');
+			})
+			.catch (function (err) {
+				console.log(err);
+				alert('Erro ao tentar excluir esta página!\r\nTente novamente mais tarde!');
+			});
+	}
 
 	$scope.salvar = function () {
 		var body;
@@ -29880,6 +29894,12 @@ angular.module('MobYourLife.Data', [])
 		return $http.post(uri, params);
 	}
 
+	this.deleteApi = function (method, args) {
+		var uri = baseApi + $rootScope.fansite._id + '/' + method;
+		var params = args ? { params: args } : {};
+		return $http.delete(uri, params);
+	}
+
 	var v3Api = 'http://www.mobyourlife.com.br:3200/api/';
 
 	this.getCredentialsV3 = function (method, args) {
@@ -29940,6 +29960,14 @@ angular.module('MobYourLife.Data')
 		var uri = 'textpages' + (pageid ? '/' + pageid : '');
 		var args = { title: title, body: body };
 		var promise = BaseApi.postApi(uri, args)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
+
+	this.deleteTextPage = function (pageid) {
+		var promise = BaseApi.deleteApi('textpages/' + pageid)
 			.then(function (response) {
 				return response.data;
 			});

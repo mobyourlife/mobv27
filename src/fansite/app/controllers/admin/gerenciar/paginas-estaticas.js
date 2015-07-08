@@ -30,11 +30,10 @@ angular.module('MobYourLife')
 
 .controller('PaginasEstaticasEditarCtrl', function ($rootScope, $scope, $routeParams, $location, $timeout, TextPagesApi) {
 	$scope.caption = 'Criar nova página';
-	$scope.mode = 'new';
 
 	if ($routeParams.pageid.toLowerCase() !== 'nova-pagina') {
 		$scope.caption = 'Editar página';
-		$scope.mode = 'edit';
+		$scope.editing = true;
 
 		TextPagesApi.getPageBody($routeParams.pageid)
 			.then(function (data) {
@@ -55,6 +54,21 @@ angular.module('MobYourLife')
 			jQuery('#editor').wysiwyg();
 		});
 	});
+
+	$scope.excluir = function () {
+		if (!confirm('Tem certeza que deseja excluir esta página?\r\nEsta ação é irreversível!')) {
+			return;
+		}
+
+		TextPagesApi.deleteTextPage($scope.pageid)
+			.then(function () {
+				$location.path('/admin/gerenciar/paginas-estaticas');
+			})
+			.catch (function (err) {
+				console.log(err);
+				alert('Erro ao tentar excluir esta página!\r\nTente novamente mais tarde!');
+			});
+	}
 
 	$scope.salvar = function () {
 		var body;

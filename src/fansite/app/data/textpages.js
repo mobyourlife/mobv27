@@ -26,4 +26,12 @@ angular.module('MobYourLife.Data')
 			});
 		return promise;
 	}
+
+	this.deleteTextPage = function (pageid) {
+		var promise = BaseApi.deleteApi('textpages/' + pageid)
+			.then(function (response) {
+				return response.data;
+			});
+		return promise;
+	}
 });
