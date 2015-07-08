@@ -29409,11 +29409,26 @@ angular.module('MobYourLife')
 })
 
 .controller('PaginasEstaticasEditarCtrl', function ($rootScope, $scope, $routeParams, $location, $timeout, TextPagesApi) {
-	if ($routeParams.pageid.toLowerCase() === 'nova-pagina') {
-		$rootScope.$broadcast('setPageTitle', 'Criar nova página');
-	} else {
-		$rootScope.$broadcast('setPageTitle', 'Editar página');
+	$scope.caption = 'Criar nova página';
+	$scope.mode = 'new';
+
+	if ($routeParams.pageid.toLowerCase() !== 'nova-pagina') {
+		$scope.caption = 'Editar página';
+		$scope.mode = 'edit';
+
+		TextPagesApi.getPageBody($routeParams.pageid)
+			.then(function (data) {
+				$scope.pageid = data._id;
+				$scope.title = data.title;
+				document.getElementById('editor').innerHTML = data.body;
+			})
+			.catch(function (err) {
+				console.log(err);
+				$location.path('/admin/gerenciar/paginas-estaticas');
+			});
 	}
+
+	$rootScope.$broadcast('setPageTitle', $scope.title);
 
 	window.loadEditor(function() {
 		$timeout(function() {
@@ -29435,13 +29450,17 @@ angular.module('MobYourLife')
 			return;
 		}
 
-		TextPagesApi.newTextPage($scope.title, body)
+		TextPagesApi.saveTextPage($scope.pageid, $scope.title, body)
 			.then(function () {
 				$scope.cancelar();
 			})
 			.catch(function (err) {
-				console.error(err);
-				alert('Erro ao tentar salvar a página estática!\r\nPor favor tente novamente!');
+				if (err.status === 409) {
+					alert('Uma página com este nome já existe!\r\nPor favor escolha outro nome!');
+				} else {
+					console.error(err);
+					alert('Erro ao tentar salvar a página estática!\r\nPor favor tente novamente!');
+				}
 			});
 	}
 
@@ -29917,9 +29936,10 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 
-	this.newTextPage = function (title, body) {
+	this.saveTextPage = function (pageid, title, body) {
+		var uri = 'textpages' + (pageid ? '/' + pageid : '');
 		var args = { title: title, body: body };
-		var promise = BaseApi.postApi('textpages', args)
+		var promise = BaseApi.postApi(uri, args)
 			.then(function (response) {
 				return response.data;
 			});

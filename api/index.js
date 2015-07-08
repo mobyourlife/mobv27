@@ -55,9 +55,9 @@ router.get('/api/:fansite/videos', videos.getVideos);
 router.get('/api/:fansite/carousel', carousel.getCarousel);
 
 router.get('/api/:fansite/textpages', textpages.getTextPages);
-router.get('/api/:fansite/textpages/:page', textpages.getPageBody);
+router.get('/api/:fansite/textpages/:path', textpages.getPageBody);
 router.post('/api/:fansite/textpages', textpages.newTextPage);
-router.post('/api/:fansite/textpages/:page', textpages.editTextPage);
+router.post('/api/:fansite/textpages/:pageid', textpages.editTextPage);
 
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
 router.get('/api/:fansite/albums', albums.getAlbums);

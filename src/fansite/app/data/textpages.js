@@ -17,9 +17,10 @@ angular.module('MobYourLife.Data')
 		return promise;
 	}
 
-	this.newTextPage = function (title, body) {
+	this.saveTextPage = function (pageid, title, body) {
+		var uri = 'textpages' + (pageid ? '/' + pageid : '');
 		var args = { title: title, body: body };
-		var promise = BaseApi.postApi('textpages', args)
+		var promise = BaseApi.postApi(uri, args)
 			.then(function (response) {
 				return response.data;
 			});
