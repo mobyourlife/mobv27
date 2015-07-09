@@ -61,8 +61,12 @@ angular.module('MobYourLife', [
 			controller: 'VideosCtrl'
 		})
 		.when('/contato', {
-			templateUrl: '/partials/contato.html',
+			templateUrl: '/partials/contato/index.html',
 			controller: 'ContatoCtrl'
+		})
+		.when('/contato/obrigado', {
+			templateUrl: '/partials/contato/obrigado.html',
+			controller: 'ContatoObrigadoCtrl'
 		})
 		.when('/admin/gerenciar/albuns', {
 			templateUrl: '/partials/admin/gerenciar/albuns/index.html',

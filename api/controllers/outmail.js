@@ -12,6 +12,8 @@ module.exports = {
 			message: req.body.params.message
 		});
 
+		console.log(mail);
+
 		mail.save(function (err) {
 			if (err) {
 				res.status(500).send();

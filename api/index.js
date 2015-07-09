@@ -49,24 +49,27 @@ var albums = require('./controllers/albums');
 // REGISTER OUR ROUTES -------------------------------
 router.get('/api/domain/:name', domain.getDomain);
 
+// Basic pages --------------------------------------
 router.get('/api/:fansite/profile', profile.getProfile);
 router.get('/api/:fansite/feeds', feeds.getFeeds);
 router.get('/api/:fansite/fotos', fotos.getFotos);
 router.get('/api/:fansite/videos', videos.getVideos);
 router.get('/api/:fansite/carousel', carousel.getCarousel);
 
+// Text pages --------------------------------------
 router.get('/api/:fansite/textpages', textpages.getTextPages);
 router.get('/api/:fansite/textpages/:path', textpages.getPageBody);
 router.post('/api/:fansite/textpages', textpages.newTextPage);
 router.post('/api/:fansite/textpages/:pageid', textpages.editTextPage);
 router.delete('/api/:fansite/textpages/:pageid', textpages.deleteTextPage);
 
+// Albums --------------------------------------
 router.get('/api/:fansite/albumpages', albumpages.getAlbumPages);
 router.get('/api/:fansite/albums', albums.getAlbums);
 router.get('/api/:fansite/albums/:albumid', albums.getAlbum);
 router.post('/api/:fansite/albums/:albumid', albums.setAlbumType);
 
-// POST METHODS --------------------------------------
+// Outmail --------------------------------------
 router.post('/api/:fansite/outmail', outmail.postNewMail);
 
 // START THE SERVER
