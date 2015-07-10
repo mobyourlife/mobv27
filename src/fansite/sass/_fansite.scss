@@ -23,6 +23,18 @@ img.user-picture {
 	-webkit-transition: max-height 0.5s;
 	-moz-transition: max-height 0.5s;
 	transition: max-height 0.5s;
+
+	&.adjustable {
+		cursor: row-resize;
+
+		&:hover {
+			border-bottom: 3px dashed #999;
+		}
+	}
+
+	/*& > .container {
+		cursor: move;
+	}*/
 }
 
 .jumbo-title {
@@ -270,4 +282,8 @@ input[data-role="magic-overlay"] {
 	cursor: pointer;
 	box-shadow: none;
 	-webkit-box-shadow: none;
+}
+
+a.link {
+	cursor: pointer;
 }

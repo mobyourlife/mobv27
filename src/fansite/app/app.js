@@ -68,6 +68,8 @@ angular.module('MobYourLife', [
 			templateUrl: '/partials/contato/obrigado.html',
 			controller: 'ContatoObrigadoCtrl'
 		})
+
+		/* Administração */
 		.when('/admin/gerenciar/albuns', {
 			templateUrl: '/partials/admin/gerenciar/albuns/index.html',
 			controller: 'GerenciarAlbunsCtrl',
@@ -88,6 +90,15 @@ angular.module('MobYourLife', [
 			controller: 'PaginasEstaticasEditarCtrl',
 			resolve: requiresLogin
 		})
+
+		/* Personalização. */
+		.when('/admin/personalizar/foto-de-capa', {
+			templateUrl: '/partials/admin/personalizar/foto-de-capa.html',
+			controller: 'FotoDeCapaCtrl',
+			resolve: requiresLogin
+		})
+
+		/* Redireciona para o início. */
 		.otherwise({
 			redirectTo: '/inicio'
 		});
@@ -244,6 +255,7 @@ angular.module('MobYourLife', [
 	}
 });
 
+/* Data services. */
 require('./data/albumpages');
 require('./data/albums');
 require('./data/carousel');
@@ -255,22 +267,32 @@ require('./data/profile');
 require('./data/textpages');
 require('./data/videos');
 
+/* Controllers do fansite. */
 require('./controllers/inicio');
 require('./controllers/sobre');
 require('./controllers/fotos');
 require('./controllers/videos');
 require('./controllers/contato');
 require('./controllers/textpage');
+
+/* Controllers da administração. */
 require('./controllers/admin/gerenciar/albuns');
 require('./controllers/admin/gerenciar/paginas-estaticas');
 
+/* Controllers da personalização. */
+
+require('./controllers/admin/personalizar/foto-de-capa');
+/* Custom directives. */
 require('./directives/mob-banner');
 require('./directives/mob-feed');
 require('./directives/mob-logo');
 require('./directives/spinner-on-load');
 
+/* Custom filters. */
 require('./filters/date');
 require('./filters/linebreaks');
 require('./filters/video');
 
+/* Extras extensions. */
 require('./editor');
+require('./fileinput');

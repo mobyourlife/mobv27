@@ -65,3 +65,15 @@ window.loadEditor = function (callback) {
 		});
 	});
 }
+
+window.loadFileUpload = function (callback) {
+	preloadScript('jquery', '//code.jquery.com/jquery-1.11.3.min.js', function () {
+		preloadScript('bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js', function () {
+			window.initFileUpload();
+
+			if (callback) {
+				callback();
+			}
+		});
+	});
+}

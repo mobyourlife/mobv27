@@ -73,10 +73,11 @@ angular.module('MobYourLife')
 
 			/* listen to carousel events */
 			$rootScope.$on('loadCarousel', function (ev, carousel) {
+				$rootScope.carouselEnabled = !!(carousel);
 				scope.background = null;
 				scope.carousel = carousel;
 				scope.activeIndex = -1;
-				scope.height = 350;
+				scope.height = (carousel ? 350 : 250);
 				scope.chevron = (scope.height * 0.85);
 
 				/* defer scope apply to the next digest cycle to avoid a digest in progress */

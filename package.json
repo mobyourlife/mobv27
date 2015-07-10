@@ -39,6 +39,7 @@
     "express": "^4.13.0",
     "moment-timezone": "^0.4.0",
     "mongoose": "^4.0.6",
+    "pmx": "^0.3.20",
     "superagent": "^1.2.0",
     "validator": "^3.41.2"
   }

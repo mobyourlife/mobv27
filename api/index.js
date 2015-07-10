@@ -6,6 +6,9 @@
 // load config
 var config = require('../config');
 
+// setup keymetrics driver
+require('pmx').init();
+
 // call the packages we need
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express

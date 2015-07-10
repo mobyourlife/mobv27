@@ -1,0 +1,40 @@
+<div ng-if="$root.carouselEnabled">
+	<h3>Que legal!</h3>
+	<p>Você já está usando o banner rotativo! O que você está achando dele?</p>
+	<p>Caso queira utilizar uma foto de capa estática, você precisa primeiro desabilitar o banner rotativo.</p>
+	<p>Se não gostar da foto de capa estática, você poderá facilmente habilitar o banner rotativo novamente.</p>
+	<p>
+		<a ng-click="disableCarousel()" class="btn btn-danger">
+			<i class="mi-th-large"></i>
+			Desabilitar banner rotativo
+		</a>
+	</p>
+</div>
+
+<div ng-if="!$root.carouselEnabled" ng-switch on="step">
+	<div ng-switch-when="1">
+		<h3>Personalizar foto de capa</h3>
+		<p>Clique no botão abaixo para selecionar uma imagem de seu computador.</p>
+
+		<div class="fileinput fileinput-new input-group" data-provides="fileinput">
+			<div class="form-control" data-trigger="fileinput"><i class="mi-picture fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+			<span class="input-group-addon btn btn-primary btn-file"><span class="fileinput-new">Procurar imagem</span><span class="fileinput-exists">Alterar</span><input type="file" name="coverfile" onchange="angular.element(this).scope().uploadImage(this.files)"></span>
+			<a href="#" class="input-group-addon btn btn-primary fileinput-exists" data-dismiss="fileinput">Remover</a>
+		</div>
+	</div>
+	<div ng-switch-when="2">
+		<h3>Ótimo!</h3>
+		<p>Agora vamos ajustar a imagem na capa de seu site.</p>
+		<p>Clique na imagem de capa e arraste para cima ou para baixo para redimensioná-la.</p>
+		<p>Pressione o botão <a ng-click="salvar()" class="link">Salvar</a> quando estiver pronto.</p>
+		<p class="pull-right">
+			<a ng-click="salvar()" class="btn btn-primary">
+				<i class="mi-floppy"></i>
+				Salvar
+			</a>
+			<a ng-click="cancelar()" class="btn btn-default">
+				Cancelar
+			</a>
+		</p>
+	</div>
+</div>
