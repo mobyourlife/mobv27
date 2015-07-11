@@ -16,8 +16,14 @@ angular.module('MobYourLife')
 				_embed = 'https://youtube.com/embed/' + match[1];
 			}
 		} else if (validate.indexOf('facebook.com') != -1) {
-			if (model.object_id) {
+			if (model && model.object_id) {
 				_embed = 'https://www.facebook.com/video/embed?video_id=' + model.object_id;
+			} else {
+				var match = /videos\/([0-9]+)/.exec(validate);
+
+				if (match) {
+					_mebed = 'https://www.facebook.com/video/embed?video_id=' + match[1];
+				}
 			}
 		}
 
