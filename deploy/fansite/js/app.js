@@ -33441,7 +33441,7 @@ angular.module('MobYourLife')
 				var match = /videos\/([0-9]+)/.exec(validate);
 
 				if (match) {
-					_mebed = 'https://www.facebook.com/video/embed?video_id=' + match[1];
+					_embed = 'https://www.facebook.com/video/embed?video_id=' + match[1];
 				}
 			}
 		}
