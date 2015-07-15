@@ -4,8 +4,7 @@
 	},
 	"api": {
 		"host": "api.mobyourlife.com.br",
-		"port": 80,
-		"database": "mongodb://localhost:27017/MobYourLife"
+		"port": 80
 	},
 	"v3": {
 		"host": "www.mobyourlife.com.br",

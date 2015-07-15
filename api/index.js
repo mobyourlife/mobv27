@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 // DATABASE CONNECTION
 // =============================================================================
-mongoose.connect(config.api.database);
+mongoose.connect(process.env.MONGOLAB_CONNECTION || config.api.database);
 
 // ENABLE CORS
 // =============================================================================
