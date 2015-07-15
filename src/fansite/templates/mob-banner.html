@@ -1,6 +1,6 @@
 <div ng-if="showBanner && !carousel" class="jumbotron" style="height: {{ height }}px; max-height: {{ height }}px; {{background}}">
 	<div class="container">
-		<h1 ng-bind="title" class="jumbo-title" style="margin-left: {{ margin }}px;"></h1>
+		<h1 ng-if="$root.controller !== 'HomeCtrl'" ng-bind="title" class="jumbo-title" style="margin-left: {{ margin }}px;"></h1>
 	</div>
 </div>
 
@@ -14,7 +14,7 @@
 	<div class="carousel-inner" role="listbox">
 		<div ng-repeat="item in carousel" class="item carousel-item" ng-class="{ 'active': item.index === activeIndex }" style="height: {{ height }}px; background: url({{ item.image }});">
 			<div class="carousel-caption">
-				<h1 ng-bind="title" class="jumbo-title"></h1>
+				<h1 ng-if="$root.controller !== 'HomeCtrl'" ng-bind="title" class="jumbo-title"></h1>
 			</div>
 		</div>
 	</div>

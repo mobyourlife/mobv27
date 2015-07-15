@@ -32479,7 +32479,7 @@ angular.module('MobYourLife.Data', [])
 		return $http.delete(uri, params);
 	}
 
-	var v3Api = 'https://www.mobyourlife.com.br:80/api/';
+	var v3Api = 'http://www.mobyourlife.com.br:80/api/';
 
 	this.getCredentialsV3 = function (method, args) {
 		var uri = v3Api + method;
