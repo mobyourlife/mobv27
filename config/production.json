@@ -9,6 +9,6 @@
 	"v3": {
 		"host": "www.mobyourlife.com.br",
 		"port": 80,
-		"ssl": "s"
+		"ssl": ""
 	}
 }
