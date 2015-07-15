@@ -32971,9 +32971,13 @@ angular.module('MobYourLife', [
 		});
 })
 
-.run(function ($rootScope, $timeout, $window, CarouselApi, TextPagesApi, AlbumPagesApi, LoginApi) {
+.run(function ($rootScope, $templateCache, $timeout, $window, CarouselApi, TextPagesApi, AlbumPagesApi, LoginApi) {
 	$rootScope.$on('$routeChangeSuccess', function (ev, data) {
 		$rootScope.controller = data.controller;
+	});
+
+	$rootScope.$on('$viewContentLoaded', function() {
+		$templateCache.removeAll();
 	});
 
 	$rootScope.show = {
