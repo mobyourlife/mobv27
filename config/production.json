@@ -8,7 +8,7 @@
 	},
 	"v3": {
 		"host": "www.mobyourlife.com.br",
-		"port": 80,
-		"ssl": ""
+		"port": 443,
+		"ssl": "s"
 	}
 }
