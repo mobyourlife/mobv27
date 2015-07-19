@@ -32045,9 +32045,38 @@ angular.module('MobYourLife')
 },{"hammerjs":5}],9:[function(require,module,exports){
 angular.module('MobYourLife')
 
-.controller('ContatoCtrl', function($rootScope, $scope, $location, OutmailApi) {
+.controller('ContatoCtrl', function($rootScope, $scope, $location, $sce, OutmailApi) {
 	$rootScope.$broadcast('setPageTitle', 'Contato');
 	$scope.busy = false;
+
+	var place = $rootScope.fansite.facebook.place;
+	if (place && place.location) {
+		$scope.phone = place.phone;
+		$scope.location = place.location;
+
+		if ($scope.location.street) {
+			$scope.address = $rootScope.fansite.facebook.name;
+			$scope.address += ', ' + $scope.location.street;
+
+			if ($scope.location.city) {
+				$scope.address += ', ' + $scope.location.city;
+			}
+
+			if ($scope.location.state) {
+				$scope.address += ', ' + $scope.location.state;
+			}
+
+			if ($scope.location.country) {
+				$scope.address += ', ' + $scope.location.country;
+			}
+
+			var maps = 'https://www.google.com/maps/embed/v1/place?key=AIzaSyDAR_lqzrM4bOUxd1hOmxOzFs_xcewoQbA';
+			maps += '&q=' + $scope.address;
+			$scope.maps = $sce.trustAsResourceUrl(maps)
+		}
+		
+		$scope.contato = ($scope.phone || $scope.address);
+	}
 
 	var isEmail = function (email) {
 		var regex = /^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i;
