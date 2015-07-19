@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div ng-class="{ 'col-sm-7': contato }">
 	<fieldset>
 		<legend class="text-center">Fale Conosco</legend>
 	</fieldset>
@@ -21,5 +21,28 @@
 				Enviar
 			</a>
 		</div>
+	</div>
+</div>
+<div ng-if="contato" ng-class="{ 'col-sm-5': contato }"
+	<fieldset>
+		<legend class="text-center">Contato</legend>
+	</fieldset>
+	<p ng-if="location">
+		<span ng-if="location.street">
+			{{location.street}}<br/>
+		</span>
+		<span ng-if="location.city">
+			{{location.city}}
+			<span ng-if="location.city && location.state"> - </span>
+			{{location.state}}
+		</span>
+	</p>
+	<p ng-if="phone">
+		{{phone}}
+	</p>
+	<div class="embed-responsive embed-responsive-4by3">
+		<iframe class="embed-responsive-item"
+			ng-src="{{maps}}">
+		</iframe>
 	</div>
 </div>
