@@ -15,7 +15,21 @@
 			<ul class="nav navbar-nav">
 				<li ng-class="{ 'active': $root.controller === 'HomeCtrl' }"><a href="/#/">Início</a></li>
 				<li ng-class="{ 'active': $root.controller === 'SobreCtrl' }"><a href="/#/sobre"><span ng-bind="$root.aboutPage || 'Sobre'"></a></li>
-				<li ng-repeat="page in $root.textPages" ng-class="{ 'active': ($root.controller === 'TextPageCtrl' && $root.activeTextPage === page.path) }"><a href="/#/p/{{ page.path }}" ng-bind="page.title"></a></li>
+
+				<li ng-repeat="page in $root.textMenu" ng-class="{ 'active': ($root.controller === 'TextPageCtrl' && $root.activeTextPage === page.path), 'dropdown': page.children.length != 0 }">
+					<a ng-if="page.children.length == 0" href="/#/p/{{ page.path }}" ng-bind="page.title"></a>
+
+					<a ng-if="page.children.length != 0">
+						<span ng-bind="page.title"></span>
+						<i class="mi-caret"></i>
+					</a>
+					<ul ng-if="page.children.length != 0" class="dropdown-menu">
+						<li ng-repeat="child in page.children">
+							<a href="/#/p/{{ child.path }}" ng-bind="child.title"></a>
+						</li>
+					</ul>
+				</li>
+
 				<li ng-class="{ 'active': ($root.controller === 'FotosCtrl' && !$root.activeTextPage) }"><a href="/#/fotos">Fotos</a></li>
 				<li ng-repeat="page in $root.albumPages" ng-class="{ 'active': ($root.controller === 'FotosCtrl' && $root.activeTextPage === page.path) }"><a href="/#/a/{{ page.path }}" ng-bind="page.name"></a></li>
 				<li ng-if="$root.fansite.video_count" ng-class="{ 'active': $root.controller === 'VideosCtrl' }"><a href="/#/videos">Vídeos</a></li>

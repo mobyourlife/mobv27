@@ -165,11 +165,47 @@ angular.module('MobYourLife', [
 	}
 	loadLoginInfo();
 
+	/* monta o menu de páginas estáticas */
+	var montarMenu = function (pages) {
+		var ret = [];
+
+		/* adiciona os itens de menu */
+		for (var i = 0; i < pages.length; i++) {
+			if (!pages[i].group)
+			{
+				ret.push(pages[i]);
+			}
+			else
+			{
+				var existe = ret.filter(function (value) {
+					return value.title.toLowerCase() === pages[i].group.toLowerCase();
+				});
+
+				if (!existe || existe.length === 0) {
+					ret.push({
+						title: pages[i].group,
+						children: []
+					});
+				}
+			}
+		}
+
+		/* adiciona os filhos dos grupos */
+		for (var j = 0; j < ret.length; j++) {
+			ret[j].children = pages.filter(function (child) {
+				return (child.group.toLowerCase() === ret[j].title.toLowerCase());
+			});
+		}
+
+		return ret;
+	}
+
 	/* load text pages */
 	var loadTextPages = function () {
 		TextPagesApi.getTextPages()
 			.then(function (data) {
 				$rootScope.textPages = data;
+				$rootScope.textMenu = montarMenu(data);
 			})
 			.catch(function (err) {
 				console.error(err);

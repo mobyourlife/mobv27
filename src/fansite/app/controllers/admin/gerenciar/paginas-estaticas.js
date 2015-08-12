@@ -39,6 +39,7 @@ angular.module('MobYourLife')
 			.then(function (data) {
 				$scope.pageid = data._id;
 				$scope.title = data.title;
+				$scope.group = data.group;
 				document.getElementById('editor').innerHTML = data.body;
 			})
 			.catch(function (err) {
@@ -84,7 +85,7 @@ angular.module('MobYourLife')
 			return;
 		}
 
-		TextPagesApi.saveTextPage($scope.pageid, $scope.title, body)
+		TextPagesApi.saveTextPage($scope.pageid, $scope.title, body, $scope.group)
 			.then(function () {
 				$scope.cancelar();
 			})

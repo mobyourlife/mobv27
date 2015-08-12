@@ -8,7 +8,8 @@ var textPageSchema = mongoose.Schema({
     ref: { type: String, ref: 'Fanpage' },
     path: String,
     title: String,
-    body: String
+    body: String,
+    group: String
 });
 
 // export user model

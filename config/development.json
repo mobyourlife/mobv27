@@ -5,7 +5,7 @@
 	"api": {
 		"host": "localhost",
 		"port": 2710,
-		"database": "mongodb://localhost:27017/MobYourLife"
+		"database": "mongodb://localhost:27017/mobyourlife"
 	},
 	"v3": {
 		"host": "www.mobyourlife.com.br",
