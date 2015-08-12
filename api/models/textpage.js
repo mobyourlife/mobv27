@@ -9,7 +9,8 @@ var textPageSchema = mongoose.Schema({
     path: String,
     title: String,
     body: String,
-    group: String
+    group: String,
+    hidden: String
 });
 
 // export user model

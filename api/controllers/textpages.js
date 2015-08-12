@@ -6,7 +6,12 @@ var TextPage = require('../models/textpage');
 
 module.exports = {
 	getTextPages: function (req, res) {
-		TextPage.find({ ref: req.params.fansite }, { path: 1, title: 1, group: 1 }, function (err, data) {
+		TextPage.find({ ref: req.params.fansite }, {
+			path: 1,
+			title: 1,
+			group: 1,
+			hidden: 1
+		}, function (err, data) {
 			if (err) {
 				throw err;
 			}
@@ -29,7 +34,8 @@ module.exports = {
 			body: 1,
 			path: 1,
 			title: 1,
-			group: 1
+			group: 1,
+			hidden: 1
 		}, function (err, data) {
 			if (err) {
 				throw err;
@@ -43,6 +49,7 @@ module.exports = {
 		obj.ref = req.params.fansite;
 		obj.title = req.body.params.title;
 		obj.group = req.body.params.group;
+		obj.hidden = req.body.params.hidden;
 		obj.path = helpers.formatAsPath(obj.title);
 		obj.body = req.body.params.body;
 
@@ -72,6 +79,7 @@ module.exports = {
 		var obj = {};
 		obj.title = req.body.params.title;
 		obj.group = req.body.params.group;
+		obj.hidden = req.body.params.hidden;
 		obj.path = helpers.formatAsPath(obj.title);
 		obj.body = req.body.params.body;
 

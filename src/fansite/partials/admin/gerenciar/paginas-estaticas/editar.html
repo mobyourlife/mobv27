@@ -80,6 +80,8 @@
 
 <div id="editor" contenteditable="true"></div>
 
+<label class="control-label">Ocultar página do menu: <button class="btn" ng-class="{ 'btn-warning': hidden, 'btn-default': !hidden }" ng-click="hidden=!hidden" ng-bind="hidden ? 'SIM' : 'Não'"></button></label>
+
 <div class="pull-right">
 	<a ng-click="salvar()" class="btn btn-primary"><i class="mi-floppy"></i> Salvar</a>
 	<a ng-click="cancelar()" class="btn btn-info">Cancelar</a>

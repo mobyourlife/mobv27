@@ -169,6 +169,10 @@ angular.module('MobYourLife', [
 	var montarMenu = function (pages) {
 		var ret = [];
 
+		pages = pages.filter(function (f) {
+			return (!f.hidden || f.hidden !== 'true');
+		});
+
 		/* adiciona os itens de menu */
 		for (var i = 0; i < pages.length; i++) {
 			if (!pages[i].group)
