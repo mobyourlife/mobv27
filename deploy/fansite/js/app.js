@@ -33152,7 +33152,7 @@ angular.module('MobYourLife', [
 			else
 			{
 				var existe = ret.filter(function (value) {
-					return value.title.toLowerCase() === pages[i].group.toLowerCase();
+					return (value.title && pages[i] && pages[i].group && value.title.toLowerCase() === pages[i].group.toLowerCase());
 				});
 
 				if (!existe || existe.length === 0) {
@@ -33167,7 +33167,7 @@ angular.module('MobYourLife', [
 		/* adiciona os filhos dos grupos */
 		for (var j = 0; j < ret.length; j++) {
 			ret[j].children = pages.filter(function (child) {
-				return (child.group.toLowerCase() === ret[j].title.toLowerCase());
+				return (child.title && ret[j] && ret[j].group && child.group.toLowerCase() === ret[j].title.toLowerCase());
 			});
 		}
 
