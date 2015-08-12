@@ -32561,7 +32561,7 @@ angular.module('MobYourLife.Data')
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
-	var baseApi = 'http://localhost:2710/api/';
+	var baseApi = 'http://api.mobyourlife.com.br:80/api/';
 
 	this.getApi = function (method, args) {
 		var uri = baseApi + $rootScope.fansite._id + '/' + method;
@@ -32581,7 +32581,7 @@ angular.module('MobYourLife.Data', [])
 		return $http.delete(uri, params);
 	}
 
-	var v3Api = 'http://www.mobyourlife.com.br:3200/api/';
+	var v3Api = 'https://www.mobyourlife.com.br:443/api/';
 
 	this.getCredentialsV3 = function (method, args) {
 		var uri = v3Api + method;
