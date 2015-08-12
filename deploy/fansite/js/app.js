@@ -33167,7 +33167,7 @@ angular.module('MobYourLife', [
 		/* adiciona os filhos dos grupos */
 		for (var j = 0; j < ret.length; j++) {
 			ret[j].children = pages.filter(function (child) {
-				return (child.title && ret[j] && ret[j].group && child.group.toLowerCase() === ret[j].title.toLowerCase());
+				return (child.group && ret[j] && ret[j].title && child.group.toLowerCase() === ret[j].title.toLowerCase());
 			});
 		}
 
