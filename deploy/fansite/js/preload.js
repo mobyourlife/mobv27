@@ -1337,7 +1337,7 @@ var request = require('superagent');
 window.thisFansite = {};
 
 /* mob base api */
-var BaseApi = 'http://localhost:2710/api/';
+var BaseApi = 'http://api.mobyourlife.com.br:80/api/';
 var BaseStatic = '/';
 
 var MobApi = {
