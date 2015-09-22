@@ -7,7 +7,17 @@ module.exports = {
 				throw err;
 			}
 
-			res.json(data);
+			if (data) {
+				res.json(data);
+			} else {
+				Domain.findOne({ _id: 'www.' + req.params.name }, function (err, data) {
+					if (err) {
+						throw err;
+					}
+
+					res.json(data);
+				});
+			}
 		});
 	}
 };
