@@ -32561,7 +32561,7 @@ angular.module('MobYourLife.Data')
 angular.module('MobYourLife.Data', [])
 
 .service('BaseApi', function ($rootScope, $http) {
-	var baseApi = 'http://api.mobyourlife.com.br:80/api/';
+	var baseApi = 'https://api.mobyourlife.com.br/legacy/api/';
 
 	this.getApi = function (method, args) {
 		var uri = baseApi + $rootScope.fansite._id + '/' + method;

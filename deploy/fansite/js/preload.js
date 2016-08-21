@@ -1337,7 +1337,7 @@ var request = require('superagent');
 window.thisFansite = {};
 
 /* mob base api */
-var BaseApi = 'http://api.mobyourlife.com.br:80/api/';
+var BaseApi = 'https://api.mobyourlife.com.br/legacy/api/';
 var BaseStatic = '/';
 
 var MobApi = {
@@ -1404,7 +1404,7 @@ var loadHtml = function(callback) {
 var loadScript = function(callback) {
 	var script = document.createElement('script');
 	script.setAttribute('type', 'text/javascript');
-	script.setAttribute('src', '/js/app.js');
+	script.setAttribute('src', '/js/app.js?v=27');
 
 	script.addEventListener('load', function () {
 		callback();
